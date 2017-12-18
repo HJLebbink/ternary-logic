@@ -5,11 +5,27 @@
 #include <intrin.h>
 #include "ternary_sse.cpp"
 #include "ternary_avx2.cpp"
+#include "ternary_x86_32.cpp"
+#include "ternary_x86_64.cpp"
+
 
 namespace ternarylogic
 {
 	namespace priv
 	{
+
+		template<unsigned k>
+		__forceinline uint32_t ternary_intern(const uint32_t a, const uint32_t b, const uint32_t c)
+		{
+			return ternarylogic::x86_32::ternary<k>(a, b, c);
+		}
+
+		template<unsigned k>
+		__forceinline uint64_t ternary_intern(const uint64_t a, const uint64_t b, const uint64_t c)
+		{
+			return ternarylogic::x86_64::ternary<k>(a, b, c);
+		}
+
 		template<unsigned k>
 		__forceinline __m128i ternary_intern(const __m128i a, const __m128i b, const __m128i c)
 		{
@@ -717,10 +733,70 @@ namespace ternarylogic
 				}
 			}
 		}
+		void inline test_equal_x86_32_equals_sse()
+		{
+			const auto a1 = _mm_set1_epi8(0b10101010);
+			const auto b1 = _mm_set1_epi8(0b11001100);
+			const auto c1 = _mm_set1_epi8(0b11110000);
+
+			const unsigned int a2 = 0b10101010;
+			const unsigned int b2 = 0b11001100;
+			const unsigned int c2 = 0b11110000;
+
+			for (int i = 0; i < 256; ++i)
+			{
+				const auto r1 = priv::ternary_not_reduced(a1, b1, c1, i);
+				const auto r2 = priv::ternary_not_reduced(a2, b2, c2, i);
+
+				const auto r1_char = r1.m128i_u8[0];
+				const auto r2_char = static_cast<unsigned char>(r2);
+
+				if (r1_char != r2_char)
+				{
+					std::cout << "NOT EQUAL!" << std::endl;
+					std::cout << "i = " << i << std::endl;
+					std::cout << "sse:    " << std::bitset<8>(r1_char).to_string() << std::endl;
+					std::cout << "x86 32: " << std::bitset<8>(r2_char).to_string() << std::endl;
+					getchar();
+				}
+			}
+		}
+
+		void inline test_equal_x86_64_equals_sse()
+		{
+			const auto a1 = _mm_set1_epi8(0b10101010);
+			const auto b1 = _mm_set1_epi8(0b11001100);
+			const auto c1 = _mm_set1_epi8(0b11110000);
+
+			const unsigned long long a2 = 0b10101010;
+			const unsigned long long b2 = 0b11001100;
+			const unsigned long long c2 = 0b11110000;
+
+			for (int i = 0; i < 256; ++i)
+			{
+				const auto r1 = priv::ternary_not_reduced(a1, b1, c1, i);
+				const auto r2 = priv::ternary_not_reduced(a2, b2, c2, i);
+
+				const auto r1_char = r1.m128i_u8[0];
+				const auto r2_char = static_cast<unsigned char>(r2);
+
+				if (r1_char != r2_char)
+				{
+					std::cout << "NOT EQUAL!" << std::endl;
+					std::cout << "i = " << i << std::endl;
+					std::cout << "sse:    " << std::bitset<8>(r1_char).to_string() << std::endl;
+					std::cout << "x86 64: " << std::bitset<8>(r2_char).to_string() << std::endl;
+					getchar();
+				}
+			}
+		}
+
 		void inline tests()
 		{
 			test_equal_sse_equals_avx512();
 			test_equal_sse_equals_avx2();
+			test_equal_x86_32_equals_sse();
+			test_equal_x86_64_equals_sse();
 			test_equal_raw_equals_reduced();
 		}
 	}
