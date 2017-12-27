@@ -11,43 +11,45 @@
 
 namespace ternarylogic
 {
+	using bf_type = unsigned long long;
+
 	namespace priv
 	{
 
-		template<unsigned k>
+		template<bf_type K>
 		__forceinline uint32_t ternary_intern(const uint32_t a, const uint32_t b, const uint32_t c)
 		{
-			return ternarylogic::x86_32::ternary<k>(a, b, c);
+			return ternarylogic::x86_32::ternary<K>(a, b, c);
 		}
 
-		template<unsigned k>
+		template<bf_type K>
 		__forceinline uint64_t ternary_intern(const uint64_t a, const uint64_t b, const uint64_t c)
 		{
-			return ternarylogic::x86_64::ternary<k>(a, b, c);
+			return ternarylogic::x86_64::ternary<K>(a, b, c);
 		}
 
-		template<unsigned k>
+		template<bf_type K>
 		__forceinline __m128i ternary_intern(const __m128i a, const __m128i b, const __m128i c)
 		{
-			return ternarylogic::sse::ternary<k>(a, b, c);
+			return ternarylogic::sse::ternary<K>(a, b, c);
 		}
 
-		template<unsigned k>
+		template<bf_type K>
 		__forceinline __m256i ternary_intern(const __m256i a, const __m256i b, const __m256i c)
 		{
-			return ternarylogic::avx2::ternary<k>(a, b, c);
+			return ternarylogic::avx2::ternary<K>(a, b, c);
 		}
 
-		template<unsigned k>
+		template<bf_type K>
 		__forceinline __m512i ternary_intern(const __m512i a, const __m512i b, const __m512i c)
 		{
-			return _mm512_ternarylogic_epi64(a, b, c, k);
+			return _mm512_ternarylogic_epi64(a, b, c, K);
 		}
 
 		template<typename T>
-		inline T ternary_not_reduced(const T a, const T b, const T c, const int i)
+		inline T ternary_not_reduced(const T a, const T b, const T c, const bf_type k)
 		{
-			switch (i)
+			switch (k)
 			{
 				case 0: return ternary_intern<0>(a, b, c);
 				case 1: return ternary_intern<1>(a, b, c);
@@ -336,11 +338,18 @@ namespace ternarylogic
 		}
  	}
 	
+
+	template <typename bf_type K, typename T>
+	inline T ternary(const T a, const T b, const T c)
+	{
+		return priv::ternary_intern<K>(a, b, c);
+	}
+
 	template <typename T>
-	inline T ternary(const T a, const T b, const T c, const int i)
+	inline T ternary(const T a, const T b, const T c, const bf_type k)
 	{
 		// method is generated with test::create_method_reduced_ternary()
-		switch (i)
+		switch (k)
 		{
 			case 0: return priv::ternary_intern<0>(a, b, c);
 			case 1: return priv::ternary_intern<1>(a, b, c);
