@@ -333,7 +333,7 @@ namespace ternarylogic
 				case 254: return ternary_intern<254>(a, b, c);
 				case 255: return ternary_intern<255>(a, b, c);
 
-				default:  return ternary_intern<0>(a, b, c);
+				default: return ternary_intern<0>(a, b, c);
 			}
 		}
  	}
@@ -613,64 +613,6 @@ namespace ternarylogic
 
 	namespace test
 	{
-		// create the ternary method
-		void inline create_method_reduced_ternary()
-		{
-			const auto a = _mm_set1_epi8(0b10101010);
-			const auto b = _mm_set1_epi8(0b11001100);
-			const auto c = _mm_set1_epi8(0b11110000);
-
-			std::cout << "	template <typename T>" << std::endl;
-			std::cout << "	inline T ternary(const T a, const T b, const T c, const int i)" << std::endl;
-			std::cout << "	{" << std::endl;
-			std::cout << "		switch (i)" << std::endl;
-			std::cout << "		{" << std::endl;
-
-			for (int i = 0; i < 256; ++i)
-			{
-				const auto r_abc = priv::ternary_not_reduced(a, b, c, i);
-				bool found_rewrite = false;
-
-				for (int j = 0; j < i; ++j)
-				{
-					if (r_abc.m128i_u8[0] == priv::ternary_not_reduced(b, a, c, j).m128i_u8[0])
-					{
-						std::cout << "			case " << i << ": return priv::ternary_intern<" << j << ">(b, a, c);" << std::endl;
-						found_rewrite = true;
-					}
-					else if (r_abc.m128i_u8[0] == priv::ternary_not_reduced(a, c, b, j).m128i_u8[0])
-					{
-						std::cout << "			case " << i << ": return priv::ternary_intern<" << j << ">(a, c, b);" << std::endl;
-						found_rewrite = true;
-					}
-					else if (r_abc.m128i_u8[0] == priv::ternary_not_reduced(c, b, a, j).m128i_u8[0])
-					{
-						std::cout << "			case " << i << ": return priv::ternary_intern<" << j << ">(c, b, a);" << std::endl;
-						found_rewrite = true;
-					}
-					else if (r_abc.m128i_u8[0] == priv::ternary_not_reduced(c, a, b, j).m128i_u8[0])
-					{
-						std::cout << "			case " << i << ": return priv::ternary_intern<" << j << ">(c, a, b);" << std::endl;
-						found_rewrite = true;
-					}
-					else if (r_abc.m128i_u8[0] == priv::ternary_not_reduced(b, c, a, j).m128i_u8[0])
-					{
-						std::cout << "			case " << i << ": return priv::ternary_intern<" << j << ">(b, c, a);" << std::endl;
-						found_rewrite = true;
-					}
-					if (found_rewrite) break;
-				}
-				if (!found_rewrite)
-				{
-					std::cout << "			case " << i << ": return priv::ternary_intern<" << i << ">(a, b, c);" << std::endl;
-				}
-			}
-			
-			std::cout << "			default: return priv::ternary_intern<0>(a, b, c);" << std::endl;
-			std::cout << "		}" << std::endl;
-			std::cout << "	}" << std::endl;
-		}
-
 		void inline test_equal_sse_equals_avx512()
 		{
 			const auto a1 = _mm_set1_epi8(0b10101010);
