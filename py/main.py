@@ -4,14 +4,12 @@ from os.path import dirname, join, realpath
 from lib.load import load
 
 
-Language_CPP    = 1
-Language_C      = 2
-
 Target_SSE      = 10
 Target_AVX2     = 20
 Target_XOP      = 30
 Target_X86_64   = 40
 Target_X86_32   = 50
+Target_AVX512   = 60
 
 
 def main():
@@ -23,11 +21,6 @@ def parse_args(args):
     from optparse import OptionParser
 
     parser = OptionParser()
-    parser.add_option(
-        "--language",
-        help="choose language (C++/CPP or C)"
-    )
-
     parser.add_option(
         "--target",
         help="choose target (SSE, AVX2, XOP, X86_64, X86_32)"
@@ -49,25 +42,15 @@ def parse_args(args):
     if options.filename is None:
         parser.error("-o is required")
 
-    if options.language is None:
-        parser.error("--language is required")
-
     if options.target is None:
         parser.error("--target is required")
-
-    if options.language.lower() in ('cpp', 'c++'):
-        options.language = Language_CPP
-
-    elif options.language.lower() in ('c'):
-        options.language = Language_C
-    else:
-        valid = ('cpp', 'c++', 'c')
-        parser.error("--language expects: %s" % ', '.join(valid))
 
     if options.target.lower() == 'sse':
         options.target = Target_SSE
     elif options.target.lower() == 'avx2':
         options.target = Target_AVX2
+    elif options.target.lower() == 'avx512':
+        options.target = Target_AVX512
     elif options.target.lower() == 'xop':
         options.target = Target_XOP
     elif options.target.lower() == 'x86_64':
@@ -75,7 +58,7 @@ def parse_args(args):
     elif options.target.lower() == 'x86_32':
         options.target = Target_X86_32
     else:
-        valid = ('sse', 'avx2', 'xop', 'x86_64', 'x86_32')
+        valid = ('sse', 'avx2', 'xop', 'x86_64', 'x86_32', 'avx512')
         parser.error("--target expects: %s" % ', '.join(valid))
 
     return options
@@ -118,6 +101,7 @@ class CodeGenerator:
         import lib.lowering_x86
         import lib.assembler_sse
         import lib.assembler_avx2
+        import lib.assembler_avx512
         import lib.assembler_xop
         import lib.assembler_x86
 
@@ -128,6 +112,10 @@ class CodeGenerator:
         elif self.options.target == Target_AVX2:
             self.lowering = lib.lowering_sse.transform
             self.assembler_class = lib.assembler_avx2.AssemblerAVX2
+
+        elif self.options.target == Target_AVX512:
+            self.lowering = lib.lowering_sse.transform
+            self.assembler_class = lib.assembler_avx512.AssemblerAVX512
 
         elif self.options.target == Target_XOP:
             self.lowering = lib.lowering_xop.transform
@@ -152,34 +140,24 @@ class CodeGenerator:
 
 
     def get_main_file(self):
-        if self.options.language == Language_CPP:
-            if self.options.target == Target_SSE:
-                return 'cpp.sse.main'
-            elif self.options.target == Target_AVX2:
-                return 'cpp.avx2.main'
-            elif self.options.target == Target_XOP:
-                return 'cpp.xop.main'
-            elif self.options.target == Target_X86_64:
-                return 'cpp.x86_64.main'
-            elif self.options.target == Target_X86_32:
-                return 'cpp.x86_32.main'
-            else:
-                assert False
-
-        elif self.options.language == Language_C:
-            pass
+        if self.options.target == Target_SSE:
+            return 'cpp.sse.main'
+        elif self.options.target == Target_AVX2:
+            return 'cpp.avx2.main'
+        elif self.options.target == Target_AVX512:
+            return 'cpp.avx512.main'
+        elif self.options.target == Target_XOP:
+            return 'cpp.xop.main'
+        elif self.options.target == Target_X86_64:
+            return 'cpp.x86_64.main'
+        elif self.options.target == Target_X86_32:
+            return 'cpp.x86_32.main'
         else:
             assert False
 
 
     def get_function_file(self):
-        if self.options.language == Language_CPP:
-            return 'cpp.function'
-
-        elif self.options.language == Language_C:
-            pass
-        else:
-            assert False
+        return 'cpp.function'
 
 
     def load(self):
