@@ -123,7 +123,7 @@ namespace ternarylogic
 		#pragma endregion
 
 		template<typename T>
-		inline T ternary_not_reduced(const T& a, const T& b, const T& c, const bf_type k)
+		inline constexpr T ternary_not_reduced(const T& a, const T& b, const T& c, const bf_type k)
 		{
 			switch (k)
 			{
@@ -414,7 +414,7 @@ namespace ternarylogic
 		}
  	
 		template<typename T>
-		inline T ternary_reduced(const T a, const T b, const T c, const bf_type k)
+		inline constexpr T ternary_reduced(const T a, const T b, const T c, const bf_type k)
 		{
 			// method is generated with test::create_method_reduced_ternary()
 			switch (k)
@@ -680,7 +680,7 @@ namespace ternarylogic
 		}
 
 		template<typename T>
-		inline T ternary_no_vpternlog(const T a, const T b, const T c, const bf_type k)
+		inline constexpr T ternary_no_vpternlog(const T a, const T b, const T c, const bf_type k)
 		{
 			switch (k)
 			{
@@ -980,7 +980,7 @@ namespace ternarylogic
 	}
 
 	template<typename T>
-	inline T ternary(const T a, const T b, const T c, const bf_type k)
+	inline constexpr T ternary(const T a, const T b, const T c, const bf_type k)
 	{
 		return priv::ternary_reduced(a, b, c, k);
 	}
