@@ -12,7 +12,7 @@ namespace ternarylogic {
         }
 
         // code=0x00, function=0, lowered=0, set=intel
-        template<> __forceinline constexpr uint32_t ternary<0x00>(const uint32_t A, const uint32_t B, const uint32_t C) {
+        template<> __forceinline constexpr uint32_t ternary<0x00>(const uint32_t, const uint32_t, const uint32_t) {
             const uint32_t c0 = 0;
             return c0;
         }
@@ -31,7 +31,7 @@ namespace ternarylogic {
             return t2;
         }
         // code=0x03, function=(B nor A), lowered=not ((B or A)), set=intel
-        template<> __forceinline constexpr uint32_t ternary<0x03>(const uint32_t A, const uint32_t B, const uint32_t C) {
+        template<> __forceinline constexpr uint32_t ternary<0x03>(const uint32_t A, const uint32_t B, const uint32_t) {
             const uint32_t t0 = B | A;
             const uint32_t t1 = ~t0;
             return t1;
@@ -44,7 +44,7 @@ namespace ternarylogic {
             return t2;
         }
         // code=0x05, function=(C nor A), lowered=not ((C or A)), set=intel
-        template<> __forceinline constexpr uint32_t ternary<0x05>(const uint32_t A, const uint32_t B, const uint32_t C) {
+        template<> __forceinline constexpr uint32_t ternary<0x05>(const uint32_t A, const uint32_t, const uint32_t C) {
             const uint32_t t0 = C | A;
             const uint32_t t1 = ~t0;
             return t1;
@@ -78,7 +78,7 @@ namespace ternarylogic {
             return t2;
         }
         // code=0x0a, function=(C and not (A)), lowered=(C and not (A)), set=intel
-        template<> __forceinline constexpr uint32_t ternary<0x0a>(const uint32_t A, const uint32_t B, const uint32_t C) {
+        template<> __forceinline constexpr uint32_t ternary<0x0a>(const uint32_t A, const uint32_t, const uint32_t C) {
             const uint32_t t0 = ~A;
             const uint32_t t1 = C & t0;
             return t1;
@@ -93,7 +93,7 @@ namespace ternarylogic {
             return t3;
         }
         // code=0x0c, function=(B and not (A)), lowered=(B and not (A)), set=intel
-        template<> __forceinline constexpr uint32_t ternary<0x0c>(const uint32_t A, const uint32_t B, const uint32_t C) {
+        template<> __forceinline constexpr uint32_t ternary<0x0c>(const uint32_t A, const uint32_t B, const uint32_t) {
             const uint32_t t0 = ~A;
             const uint32_t t1 = B & t0;
             return t1;
@@ -115,7 +115,7 @@ namespace ternarylogic {
             return t2;
         }
         // code=0x0f, function=not (A), lowered=not (A), set=intel
-        template<> __forceinline constexpr uint32_t ternary<0x0f>(const uint32_t A, const uint32_t B, const uint32_t C) {
+        template<> __forceinline constexpr uint32_t ternary<0x0f>(const uint32_t A, const uint32_t, const uint32_t) {
             const uint32_t t0 = ~A;
             return t0;
         }
@@ -127,7 +127,7 @@ namespace ternarylogic {
             return t2;
         }
         // code=0x11, function=(C nor B), lowered=not ((C or B)), set=intel
-        template<> __forceinline constexpr uint32_t ternary<0x11>(const uint32_t A, const uint32_t B, const uint32_t C) {
+        template<> __forceinline constexpr uint32_t ternary<0x11>(const uint32_t, const uint32_t B, const uint32_t C) {
             const uint32_t t0 = C | B;
             const uint32_t t1 = ~t0;
             return t1;
@@ -259,7 +259,7 @@ namespace ternarylogic {
             return t2;
         }
         // code=0x22, function=(C and not (B)), lowered=(C and not (B)), set=intel
-        template<> __forceinline constexpr uint32_t ternary<0x22>(const uint32_t A, const uint32_t B, const uint32_t C) {
+        template<> __forceinline constexpr uint32_t ternary<0x22>(const uint32_t, const uint32_t B, const uint32_t C) {
             const uint32_t t0 = ~B;
             const uint32_t t1 = C & t0;
             return t1;
@@ -374,7 +374,7 @@ namespace ternarylogic {
             return t3;
         }
         // code=0x30, function=(A and not (B)), lowered=(A and not (B)), set=intel
-        template<> __forceinline constexpr uint32_t ternary<0x30>(const uint32_t A, const uint32_t B, const uint32_t C) {
+        template<> __forceinline constexpr uint32_t ternary<0x30>(const uint32_t A, const uint32_t B, const uint32_t) {
             const uint32_t t0 = ~B;
             const uint32_t t1 = A & t0;
             return t1;
@@ -396,7 +396,7 @@ namespace ternarylogic {
             return t2;
         }
         // code=0x33, function=not (B), lowered=not (B), set=intel
-        template<> __forceinline constexpr uint32_t ternary<0x33>(const uint32_t A, const uint32_t B, const uint32_t C) {
+        template<> __forceinline constexpr uint32_t ternary<0x33>(const uint32_t, const uint32_t B, const uint32_t) {
             const uint32_t t0 = ~B;
             return t0;
         }
@@ -465,7 +465,7 @@ namespace ternarylogic {
             return t3;
         }
         // code=0x3c, function=(B xor A), lowered=(B xor A), set=intel
-        template<> __forceinline constexpr uint32_t ternary<0x3c>(const uint32_t A, const uint32_t B, const uint32_t C) {
+        template<> __forceinline constexpr uint32_t ternary<0x3c>(const uint32_t A, const uint32_t B, const uint32_t) {
             const uint32_t t0 = B ^ A;
             return t0;
         }
@@ -486,7 +486,7 @@ namespace ternarylogic {
             return t3;
         }
         // code=0x3f, function=(B nand A), lowered=not ((B and A)), set=intel
-        template<> __forceinline constexpr uint32_t ternary<0x3f>(const uint32_t A, const uint32_t B, const uint32_t C) {
+        template<> __forceinline constexpr uint32_t ternary<0x3f>(const uint32_t A, const uint32_t B, const uint32_t) {
             const uint32_t t0 = B & A;
             const uint32_t t1 = ~t0;
             return t1;
@@ -523,7 +523,7 @@ namespace ternarylogic {
             return t4;
         }
         // code=0x44, function=(B and not (C)), lowered=(B and not (C)), set=intel
-        template<> __forceinline constexpr uint32_t ternary<0x44>(const uint32_t A, const uint32_t B, const uint32_t C) {
+        template<> __forceinline constexpr uint32_t ternary<0x44>(const uint32_t, const uint32_t B, const uint32_t C) {
             const uint32_t t0 = ~C;
             const uint32_t t1 = B & t0;
             return t1;
@@ -623,7 +623,7 @@ namespace ternarylogic {
             return t3;
         }
         // code=0x50, function=(A and not (C)), lowered=(A and not (C)), set=intel
-        template<> __forceinline constexpr uint32_t ternary<0x50>(const uint32_t A, const uint32_t B, const uint32_t C) {
+        template<> __forceinline constexpr uint32_t ternary<0x50>(const uint32_t A, const uint32_t, const uint32_t C) {
             const uint32_t t0 = ~C;
             const uint32_t t1 = A & t0;
             return t1;
@@ -663,7 +663,7 @@ namespace ternarylogic {
             return t2;
         }
         // code=0x55, function=not (C), lowered=not (C), set=intel
-        template<> __forceinline constexpr uint32_t ternary<0x55>(const uint32_t A, const uint32_t B, const uint32_t C) {
+        template<> __forceinline constexpr uint32_t ternary<0x55>(const uint32_t, const uint32_t, const uint32_t C) {
             const uint32_t t0 = ~C;
             return t0;
         }
@@ -696,7 +696,7 @@ namespace ternarylogic {
             return t2;
         }
         // code=0x5a, function=(C xor A), lowered=(C xor A), set=intel
-        template<> __forceinline constexpr uint32_t ternary<0x5a>(const uint32_t A, const uint32_t B, const uint32_t C) {
+        template<> __forceinline constexpr uint32_t ternary<0x5a>(const uint32_t A, const uint32_t, const uint32_t C) {
             const uint32_t t0 = C ^ A;
             return t0;
         }
@@ -735,7 +735,7 @@ namespace ternarylogic {
             return t3;
         }
         // code=0x5f, function=(C nand A), lowered=not ((C and A)), set=intel
-        template<> __forceinline constexpr uint32_t ternary<0x5f>(const uint32_t A, const uint32_t B, const uint32_t C) {
+        template<> __forceinline constexpr uint32_t ternary<0x5f>(const uint32_t A, const uint32_t, const uint32_t C) {
             const uint32_t t0 = C & A;
             const uint32_t t1 = ~t0;
             return t1;
@@ -788,7 +788,7 @@ namespace ternarylogic {
             return t2;
         }
         // code=0x66, function=(C xor B), lowered=(C xor B), set=intel
-        template<> __forceinline constexpr uint32_t ternary<0x66>(const uint32_t A, const uint32_t B, const uint32_t C) {
+        template<> __forceinline constexpr uint32_t ternary<0x66>(const uint32_t, const uint32_t B, const uint32_t C) {
             const uint32_t t0 = C ^ B;
             return t0;
         }
@@ -926,7 +926,7 @@ namespace ternarylogic {
             return t3;
         }
         // code=0x77, function=(C nand B), lowered=not ((C and B)), set=intel
-        template<> __forceinline constexpr uint32_t ternary<0x77>(const uint32_t A, const uint32_t B, const uint32_t C) {
+        template<> __forceinline constexpr uint32_t ternary<0x77>(const uint32_t, const uint32_t B, const uint32_t C) {
             const uint32_t t0 = C & B;
             const uint32_t t1 = ~t0;
             return t1;
@@ -1060,7 +1060,7 @@ namespace ternarylogic {
             return t2;
         }
         // code=0x88, function=(C and B), lowered=(C and B), set=intel
-        template<> __forceinline constexpr uint32_t ternary<0x88>(const uint32_t A, const uint32_t B, const uint32_t C) {
+        template<> __forceinline constexpr uint32_t ternary<0x88>(const uint32_t, const uint32_t B, const uint32_t C) {
             const uint32_t t0 = C & B;
             return t0;
         }
@@ -1198,7 +1198,7 @@ namespace ternarylogic {
             return t3;
         }
         // code=0x99, function=(C xnor B), lowered=not ((C xor B)), set=intel
-        template<> __forceinline constexpr uint32_t ternary<0x99>(const uint32_t A, const uint32_t B, const uint32_t C) {
+        template<> __forceinline constexpr uint32_t ternary<0x99>(const uint32_t, const uint32_t B, const uint32_t C) {
             const uint32_t t0 = C ^ B;
             const uint32_t t1 = ~t0;
             return t1;
@@ -1253,7 +1253,7 @@ namespace ternarylogic {
             return t2;
         }
         // code=0xa0, function=(C and A), lowered=(C and A), set=intel
-        template<> __forceinline constexpr uint32_t ternary<0xa0>(const uint32_t A, const uint32_t B, const uint32_t C) {
+        template<> __forceinline constexpr uint32_t ternary<0xa0>(const uint32_t A, const uint32_t, const uint32_t C) {
             const uint32_t t0 = C & A;
             return t0;
         }
@@ -1292,7 +1292,7 @@ namespace ternarylogic {
             return t3;
         }
         // code=0xa5, function=(C xnor A), lowered=not ((C xor A)), set=intel
-        template<> __forceinline constexpr uint32_t ternary<0xa5>(const uint32_t A, const uint32_t B, const uint32_t C) {
+        template<> __forceinline constexpr uint32_t ternary<0xa5>(const uint32_t A, const uint32_t, const uint32_t C) {
             const uint32_t t0 = C ^ A;
             const uint32_t t1 = ~t0;
             return t1;
@@ -1328,7 +1328,7 @@ namespace ternarylogic {
             return t2;
         }
         // code=0xaa, function=C, lowered=C, set=intel
-        template<> __forceinline constexpr uint32_t ternary<0xaa>(const uint32_t A, const uint32_t B, const uint32_t C) {
+        template<> __forceinline constexpr uint32_t ternary<0xaa>(const uint32_t, const uint32_t, const uint32_t C) {
             return C;
         }
         // code=0xab, function=(C or (B nor A)), lowered=(C or not ((B or A))), set=intel
@@ -1363,7 +1363,7 @@ namespace ternarylogic {
             return t2;
         }
         // code=0xaf, function=(C or not (A)), lowered=(C or not (A)), set=intel
-        template<> __forceinline constexpr uint32_t ternary<0xaf>(const uint32_t A, const uint32_t B, const uint32_t C) {
+        template<> __forceinline constexpr uint32_t ternary<0xaf>(const uint32_t A, const uint32_t, const uint32_t C) {
             const uint32_t t0 = ~A;
             const uint32_t t1 = C | t0;
             return t1;
@@ -1459,7 +1459,7 @@ namespace ternarylogic {
             return t2;
         }
         // code=0xbb, function=(C or not (B)), lowered=(C or not (B)), set=intel
-        template<> __forceinline constexpr uint32_t ternary<0xbb>(const uint32_t A, const uint32_t B, const uint32_t C) {
+        template<> __forceinline constexpr uint32_t ternary<0xbb>(const uint32_t, const uint32_t B, const uint32_t C) {
             const uint32_t t0 = ~B;
             const uint32_t t1 = C | t0;
             return t1;
@@ -1494,7 +1494,7 @@ namespace ternarylogic {
             return t2;
         }
         // code=0xc0, function=(B and A), lowered=(B and A), set=intel
-        template<> __forceinline constexpr uint32_t ternary<0xc0>(const uint32_t A, const uint32_t B, const uint32_t C) {
+        template<> __forceinline constexpr uint32_t ternary<0xc0>(const uint32_t A, const uint32_t B, const uint32_t) {
             const uint32_t t0 = B & A;
             return t0;
         }
@@ -1517,7 +1517,7 @@ namespace ternarylogic {
             return t3;
         }
         // code=0xc3, function=(B xnor A), lowered=not ((B xor A)), set=intel
-        template<> __forceinline constexpr uint32_t ternary<0xc3>(const uint32_t A, const uint32_t B, const uint32_t C) {
+        template<> __forceinline constexpr uint32_t ternary<0xc3>(const uint32_t A, const uint32_t B, const uint32_t) {
             const uint32_t t0 = B ^ A;
             const uint32_t t1 = ~t0;
             return t1;
@@ -1587,7 +1587,7 @@ namespace ternarylogic {
             return t3;
         }
         // code=0xcc, function=B, lowered=B, set=intel
-        template<> __forceinline constexpr uint32_t ternary<0xcc>(const uint32_t A, const uint32_t B, const uint32_t C) {
+        template<> __forceinline constexpr uint32_t ternary<0xcc>(const uint32_t, const uint32_t B, const uint32_t) {
             return B;
         }
         // code=0xcd, function=(B or (A nor C)), lowered=(B or not ((A or C))), set=intel
@@ -1714,7 +1714,7 @@ namespace ternarylogic {
             return t2;
         }
         // code=0xdd, function=(B or not (C)), lowered=(B or not (C)), set=intel
-        template<> __forceinline constexpr uint32_t ternary<0xdd>(const uint32_t A, const uint32_t B, const uint32_t C) {
+        template<> __forceinline constexpr uint32_t ternary<0xdd>(const uint32_t, const uint32_t B, const uint32_t C) {
             const uint32_t t0 = ~C;
             const uint32_t t1 = B | t0;
             return t1;
@@ -1838,7 +1838,7 @@ namespace ternarylogic {
             return t2;
         }
         // code=0xee, function=(C or B), lowered=(C or B), set=intel
-        template<> __forceinline constexpr uint32_t ternary<0xee>(const uint32_t A, const uint32_t B, const uint32_t C) {
+        template<> __forceinline constexpr uint32_t ternary<0xee>(const uint32_t, const uint32_t B, const uint32_t C) {
             const uint32_t t0 = C | B;
             return t0;
         }
@@ -1850,7 +1850,7 @@ namespace ternarylogic {
             return t2;
         }
         // code=0xf0, function=A, lowered=A, set=intel
-        template<> __forceinline constexpr uint32_t ternary<0xf0>(const uint32_t A, const uint32_t B, const uint32_t C) {
+        template<> __forceinline constexpr uint32_t ternary<0xf0>(const uint32_t A, const uint32_t, const uint32_t) {
             return A;
         }
         // code=0xf1, function=(A or (B nor C)), lowered=(A or not ((B or C))), set=intel
@@ -1868,7 +1868,7 @@ namespace ternarylogic {
             return t2;
         }
         // code=0xf3, function=(A or not (B)), lowered=(A or not (B)), set=intel
-        template<> __forceinline constexpr uint32_t ternary<0xf3>(const uint32_t A, const uint32_t B, const uint32_t C) {
+        template<> __forceinline constexpr uint32_t ternary<0xf3>(const uint32_t A, const uint32_t B, const uint32_t) {
             const uint32_t t0 = ~B;
             const uint32_t t1 = A | t0;
             return t1;
@@ -1881,7 +1881,7 @@ namespace ternarylogic {
             return t2;
         }
         // code=0xf5, function=(A or not (C)), lowered=(A or not (C)), set=intel
-        template<> __forceinline constexpr uint32_t ternary<0xf5>(const uint32_t A, const uint32_t B, const uint32_t C) {
+        template<> __forceinline constexpr uint32_t ternary<0xf5>(const uint32_t A, const uint32_t, const uint32_t C) {
             const uint32_t t0 = ~C;
             const uint32_t t1 = A | t0;
             return t1;
@@ -1913,7 +1913,7 @@ namespace ternarylogic {
             return t2;
         }
         // code=0xfa, function=(C or A), lowered=(C or A), set=intel
-        template<> __forceinline constexpr uint32_t ternary<0xfa>(const uint32_t A, const uint32_t B, const uint32_t C) {
+        template<> __forceinline constexpr uint32_t ternary<0xfa>(const uint32_t A, const uint32_t, const uint32_t C) {
             const uint32_t t0 = C | A;
             return t0;
         }
@@ -1925,7 +1925,7 @@ namespace ternarylogic {
             return t2;
         }
         // code=0xfc, function=(B or A), lowered=(B or A), set=intel
-        template<> __forceinline constexpr uint32_t ternary<0xfc>(const uint32_t A, const uint32_t B, const uint32_t C) {
+        template<> __forceinline constexpr uint32_t ternary<0xfc>(const uint32_t A, const uint32_t B, const uint32_t) {
             const uint32_t t0 = B | A;
             return t0;
         }
@@ -1943,7 +1943,7 @@ namespace ternarylogic {
             return t1;
         }
         // code=0xff, function=1, lowered=1, set=intel
-        template<> __forceinline constexpr uint32_t ternary<0xff>(const uint32_t A, const uint32_t B, const uint32_t C) {
+        template<> __forceinline constexpr uint32_t ternary<0xff>(const uint32_t, const uint32_t, const uint32_t) {
             const uint32_t c1 = uint32_t(-1);
             return c1;
         }

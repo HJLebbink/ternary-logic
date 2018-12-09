@@ -6,6 +6,7 @@
 // main for testing
 int main()
 {
+	printf("\nGoing to run:\n");
 	ternarylogic::test::tests();
 	printf("\nPress RETURN to finish:");
 	getchar();

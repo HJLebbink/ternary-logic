@@ -16,6 +16,8 @@
 #include "ternary_sse.cpp"
 #include "ternary_avx2.cpp"
 #include "ternary_avx512.cpp"
+#include "ternary_bitset.cpp"
+
 
 /*
 from Intel® Xeon® Scalable Processor Instruction Throughput and Latency 
@@ -59,6 +61,15 @@ namespace ternarylogic
 	namespace priv
 	{
 		#pragma region Ternary Intern
+
+
+		template<bf_type K, size_t S>
+		__forceinline constexpr std::bitset<S> ternary_intern(const std::bitset<S>& a, const std::bitset<S>& b, const std::bitset<S>& c)
+		{
+			return ternarylogic::bitset::ternary<K, S>(a, b, c);
+		}
+
+
 		template<bf_type K>
 		__forceinline constexpr uint32_t ternary_intern(const uint32_t a, const uint32_t b, const uint32_t c)
 		{
@@ -989,6 +1000,8 @@ namespace ternarylogic
 	{
 		void inline test_equal_sse_equals_avx512()
 		{
+			std::cout << "test_equal_sse_equals_avx512" << std::endl;
+
 			const auto a1 = _mm_set1_epi8(0b10101010);
 			const auto b1 = _mm_set1_epi8(0b11001100);
 			const auto c1 = _mm_set1_epi8(0b11110000);
@@ -1014,6 +1027,8 @@ namespace ternarylogic
 		}
 		void inline test_equal_sse_equals_avx2()
 		{
+			std::cout << "test_equal_sse_equals_avx2" << std::endl;
+
 			const auto a1 = _mm_set1_epi8(0b10101010);
 			const auto b1 = _mm_set1_epi8(0b11001100);
 			const auto c1 = _mm_set1_epi8(0b11110000);
@@ -1039,6 +1054,8 @@ namespace ternarylogic
 		}
 		void inline test_equal_raw_equals_reduced()
 		{
+			std::cout << "test_equal_raw_equals_reduced" << std::endl;
+
 			const auto a = _mm_set1_epi8(0b10101010);
 			const auto b = _mm_set1_epi8(0b11001100);
 			const auto c = _mm_set1_epi8(0b11110000);
@@ -1060,6 +1077,8 @@ namespace ternarylogic
 		}
 		void inline test_equal_avx512_equals_avx512raw()
 		{
+			std::cout << "test_equal_avx512_equals_avx512raw" << std::endl;
+
 			const auto a = _mm512_set1_epi8(0b10101010);
 			const auto b = _mm512_set1_epi8(0b11001100);
 			const auto c = _mm512_set1_epi8(0b11110000);
@@ -1081,6 +1100,8 @@ namespace ternarylogic
 		}
 		void inline test_equal_x86_32_equals_sse()
 		{
+			std::cout << "test_equal_x86_32_equals_sse" << std::endl;
+
 			const auto a1 = _mm_set1_epi8(0b10101010);
 			const auto b1 = _mm_set1_epi8(0b11001100);
 			const auto c1 = _mm_set1_epi8(0b11110000);
@@ -1109,6 +1130,8 @@ namespace ternarylogic
 		}
 		void inline test_equal_x86_64_equals_sse()
 		{
+			std::cout << "test_equal_x86_64_equals_sse" << std::endl;
+
 			const auto a1 = _mm_set1_epi8(0b10101010);
 			const auto b1 = _mm_set1_epi8(0b11001100);
 			const auto c1 = _mm_set1_epi8(0b11110000);
@@ -1135,6 +1158,36 @@ namespace ternarylogic
 				}
 			}
 		}
+		void inline test_equal_bitset_equals_sse()
+		{
+			std::cout << "test_equal_bitset_equals_sse" << std::endl;
+
+			const auto a1 = std::bitset<8>(0b10101010);
+			const auto b1 = std::bitset<8>(0b11001100);
+			const auto c1 = std::bitset<8>(0b11110000);
+
+			const unsigned int a2 = 0b10101010;
+			const unsigned int b2 = 0b11001100;
+			const unsigned int c2 = 0b11110000;
+
+			for (int i = 0; i < 256; ++i)
+			{
+				const auto r1 = priv::ternary_not_reduced(a1, b1, c1, i);
+				const auto r2 = priv::ternary_not_reduced(a2, b2, c2, i);
+
+				const auto r1_char = static_cast<unsigned char>(r1.to_ulong());
+				const auto r2_char = static_cast<unsigned char>(r2);
+
+				if (r1_char != r2_char)
+				{
+					std::cout << "NOT EQUAL!" << std::endl;
+					std::cout << "i = " << i << std::endl;
+					std::cout << "sse:    " << std::bitset<8>(r1_char).to_string() << std::endl;
+					std::cout << "x86 32: " << std::bitset<8>(r2_char).to_string() << std::endl;
+					getchar();
+				}
+			}
+		}
 
 
 		template <bf_type K>
@@ -1143,9 +1196,9 @@ namespace ternarylogic
 			const int n_experiments = 100000;
 			const int n_loops = 1;
 
-			const auto a = _mm512_set1_epi8(rand());
-			const auto b = _mm512_set1_epi8(rand());
-			const auto c = _mm512_set1_epi8(rand());
+			const auto a = _mm512_set1_epi8(static_cast<char>(rand()));
+			const auto b = _mm512_set1_epi8(static_cast<char>(rand()));
+			const auto c = _mm512_set1_epi8(static_cast<char>(rand()));
 
 			__m512i sum1 = _mm512_setzero_si512();
 			__m512i sum2 = _mm512_setzero_si512();
@@ -1201,8 +1254,11 @@ namespace ternarylogic
 			test_equal_sse_equals_avx2();
 			test_equal_x86_32_equals_sse();
 			test_equal_x86_64_equals_sse();
+			test_equal_bitset_equals_sse();
 			test_equal_raw_equals_reduced();
 			test_equal_avx512_equals_avx512raw();
+
+
 
 			//test_speed_vpternlog_all();
 		}

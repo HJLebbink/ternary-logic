@@ -22,6 +22,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="ternary_avx2.cpp" />
     <ClCompile Include="ternary_avx512.cpp" />
+    <ClCompile Include="ternary_bitset.cpp" />
     <ClCompile Include="ternary_logic.cpp" />
     <ClCompile Include="ternary_sse.cpp" />
     <ClCompile Include="ternary_x86_32.cpp" />
@@ -33,7 +34,7 @@
     <ProjectGuid>{9D24E5A1-D2DF-4A00-A322-D430E8727CF5}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>optimizevpternlog</RootNamespace>
-    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
