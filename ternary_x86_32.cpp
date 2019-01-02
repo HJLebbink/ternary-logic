@@ -1605,7 +1605,7 @@ namespace ternarylogic {
             return t2;
         }
         // code=0xcf, function=(B or not (A)), lowered=(B or not (A)), set=intel
-        template<> __forceinline constexpr uint32_t ternary<0xcf>(const uint32_t A, const uint32_t B, const uint32_t C) {
+        template<> __forceinline constexpr uint32_t ternary<0xcf>(const uint32_t A, const uint32_t B, const uint32_t) {
             const uint32_t t0 = ~A;
             const uint32_t t1 = B | t0;
             return t1;

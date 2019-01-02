@@ -12,7 +12,7 @@ namespace ternarylogic {
         }
 
         // code=0x00, function=0, lowered=0, set=intel
-        template<> inline __m256i ternary<0x00>(const __m256i A, const __m256i B, const __m256i C) {
+        template<> inline __m256i ternary<0x00>(const __m256i, const __m256i, const __m256i) {
             const __m256i c0 = _mm256_setzero_si256();
             return c0;
         }
@@ -31,7 +31,7 @@ namespace ternarylogic {
             return t1;
         }
         // code=0x03, function=(B nor A), lowered=((B or A) xor 1), set=intel
-        template<> inline __m256i ternary<0x03>(const __m256i A, const __m256i B, const __m256i C) {
+        template<> inline __m256i ternary<0x03>(const __m256i A, const __m256i B, const __m256i) {
             const __m256i t0 = _mm256_or_si256(B, A);
             const __m256i c1 = _mm256_set1_epi32(-1);
             const __m256i t1 = _mm256_xor_si256(t0, c1);
@@ -44,7 +44,7 @@ namespace ternarylogic {
             return t1;
         }
         // code=0x05, function=(C nor A), lowered=((C or A) xor 1), set=intel
-        template<> inline __m256i ternary<0x05>(const __m256i A, const __m256i B, const __m256i C) {
+        template<> inline __m256i ternary<0x05>(const __m256i A, const __m256i, const __m256i C) {
             const __m256i t0 = _mm256_or_si256(C, A);
             const __m256i c1 = _mm256_set1_epi32(-1);
             const __m256i t1 = _mm256_xor_si256(t0, c1);
@@ -79,7 +79,7 @@ namespace ternarylogic {
             return t2;
         }
         // code=0x0a, function=(C and not (A)), lowered=(A notand C), set=intel
-        template<> inline __m256i ternary<0x0a>(const __m256i A, const __m256i B, const __m256i C) {
+        template<> inline __m256i ternary<0x0a>(const __m256i A, const __m256i, const __m256i C) {
             const __m256i t0 = _mm256_andnot_si256(A, C);
             return t0;
         }
@@ -92,7 +92,7 @@ namespace ternarylogic {
             return t2;
         }
         // code=0x0c, function=(B and not (A)), lowered=(A notand B), set=intel
-        template<> inline __m256i ternary<0x0c>(const __m256i A, const __m256i B, const __m256i C) {
+        template<> inline __m256i ternary<0x0c>(const __m256i A, const __m256i B, const __m256i) {
             const __m256i t0 = _mm256_andnot_si256(A, B);
             return t0;
         }
@@ -111,7 +111,7 @@ namespace ternarylogic {
             return t1;
         }
         // code=0x0f, function=not (A), lowered=(A xor 1), set=intel
-        template<> inline __m256i ternary<0x0f>(const __m256i A, const __m256i B, const __m256i C) {
+        template<> inline __m256i ternary<0x0f>(const __m256i A, const __m256i, const __m256i) {
             const __m256i c1 = _mm256_set1_epi32(-1);
             const __m256i t0 = _mm256_xor_si256(A, c1);
             return t0;
@@ -123,7 +123,7 @@ namespace ternarylogic {
             return t1;
         }
         // code=0x11, function=(C nor B), lowered=((C or B) xor 1), set=intel
-        template<> inline __m256i ternary<0x11>(const __m256i A, const __m256i B, const __m256i C) {
+        template<> inline __m256i ternary<0x11>(const __m256i, const __m256i B, const __m256i C) {
             const __m256i t0 = _mm256_or_si256(C, B);
             const __m256i c1 = _mm256_set1_epi32(-1);
             const __m256i t1 = _mm256_xor_si256(t0, c1);
@@ -253,7 +253,7 @@ namespace ternarylogic {
             return t2;
         }
         // code=0x22, function=(C and not (B)), lowered=(B notand C), set=intel
-        template<> inline __m256i ternary<0x22>(const __m256i A, const __m256i B, const __m256i C) {
+        template<> inline __m256i ternary<0x22>(const __m256i, const __m256i B, const __m256i C) {
             const __m256i t0 = _mm256_andnot_si256(B, C);
             return t0;
         }
@@ -362,7 +362,7 @@ namespace ternarylogic {
             return t2;
         }
         // code=0x30, function=(A and not (B)), lowered=(B notand A), set=intel
-        template<> inline __m256i ternary<0x30>(const __m256i A, const __m256i B, const __m256i C) {
+        template<> inline __m256i ternary<0x30>(const __m256i A, const __m256i B, const __m256i) {
             const __m256i t0 = _mm256_andnot_si256(B, A);
             return t0;
         }
@@ -381,7 +381,7 @@ namespace ternarylogic {
             return t1;
         }
         // code=0x33, function=not (B), lowered=(B xor 1), set=intel
-        template<> inline __m256i ternary<0x33>(const __m256i A, const __m256i B, const __m256i C) {
+        template<> inline __m256i ternary<0x33>(const __m256i, const __m256i B, const __m256i) {
             const __m256i c1 = _mm256_set1_epi32(-1);
             const __m256i t0 = _mm256_xor_si256(B, c1);
             return t0;
@@ -447,7 +447,7 @@ namespace ternarylogic {
             return t2;
         }
         // code=0x3c, function=(B xor A), lowered=(B xor A), set=intel
-        template<> inline __m256i ternary<0x3c>(const __m256i A, const __m256i B, const __m256i C) {
+        template<> inline __m256i ternary<0x3c>(const __m256i A, const __m256i B, const __m256i) {
             const __m256i t0 = _mm256_xor_si256(B, A);
             return t0;
         }
@@ -468,7 +468,7 @@ namespace ternarylogic {
             return t2;
         }
         // code=0x3f, function=(B nand A), lowered=((B and A) xor 1), set=intel
-        template<> inline __m256i ternary<0x3f>(const __m256i A, const __m256i B, const __m256i C) {
+        template<> inline __m256i ternary<0x3f>(const __m256i A, const __m256i B, const __m256i) {
             const __m256i t0 = _mm256_and_si256(B, A);
             const __m256i c1 = _mm256_set1_epi32(-1);
             const __m256i t1 = _mm256_xor_si256(t0, c1);
@@ -505,7 +505,7 @@ namespace ternarylogic {
             return t3;
         }
         // code=0x44, function=(B and not (C)), lowered=(C notand B), set=intel
-        template<> inline __m256i ternary<0x44>(const __m256i A, const __m256i B, const __m256i C) {
+        template<> inline __m256i ternary<0x44>(const __m256i, const __m256i B, const __m256i C) {
             const __m256i t0 = _mm256_andnot_si256(C, B);
             return t0;
         }
@@ -598,7 +598,7 @@ namespace ternarylogic {
             return t2;
         }
         // code=0x50, function=(A and not (C)), lowered=(C notand A), set=intel
-        template<> inline __m256i ternary<0x50>(const __m256i A, const __m256i B, const __m256i C) {
+        template<> inline __m256i ternary<0x50>(const __m256i A, const __m256i, const __m256i C) {
             const __m256i t0 = _mm256_andnot_si256(C, A);
             return t0;
         }
@@ -633,7 +633,7 @@ namespace ternarylogic {
             return t1;
         }
         // code=0x55, function=not (C), lowered=(C xor 1), set=intel
-        template<> inline __m256i ternary<0x55>(const __m256i A, const __m256i B, const __m256i C) {
+        template<> inline __m256i ternary<0x55>(const __m256i, const __m256i, const __m256i C) {
             const __m256i c1 = _mm256_set1_epi32(-1);
             const __m256i t0 = _mm256_xor_si256(C, c1);
             return t0;
@@ -668,7 +668,7 @@ namespace ternarylogic {
             return t2;
         }
         // code=0x5a, function=(C xor A), lowered=(C xor A), set=intel
-        template<> inline __m256i ternary<0x5a>(const __m256i A, const __m256i B, const __m256i C) {
+        template<> inline __m256i ternary<0x5a>(const __m256i A, const __m256i, const __m256i C) {
             const __m256i t0 = _mm256_xor_si256(C, A);
             return t0;
         }
@@ -704,7 +704,7 @@ namespace ternarylogic {
             return t2;
         }
         // code=0x5f, function=(C nand A), lowered=((C and A) xor 1), set=intel
-        template<> inline __m256i ternary<0x5f>(const __m256i A, const __m256i B, const __m256i C) {
+        template<> inline __m256i ternary<0x5f>(const __m256i A, const __m256i, const __m256i C) {
             const __m256i t0 = _mm256_and_si256(C, A);
             const __m256i c1 = _mm256_set1_epi32(-1);
             const __m256i t1 = _mm256_xor_si256(t0, c1);
@@ -758,7 +758,7 @@ namespace ternarylogic {
             return t2;
         }
         // code=0x66, function=(C xor B), lowered=(C xor B), set=intel
-        template<> inline __m256i ternary<0x66>(const __m256i A, const __m256i B, const __m256i C) {
+        template<> inline __m256i ternary<0x66>(const __m256i, const __m256i B, const __m256i C) {
             const __m256i t0 = _mm256_xor_si256(C, B);
             return t0;
         }
@@ -889,7 +889,7 @@ namespace ternarylogic {
             return t2;
         }
         // code=0x77, function=(C nand B), lowered=((C and B) xor 1), set=intel
-        template<> inline __m256i ternary<0x77>(const __m256i A, const __m256i B, const __m256i C) {
+        template<> inline __m256i ternary<0x77>(const __m256i, const __m256i B, const __m256i C) {
             const __m256i t0 = _mm256_and_si256(C, B);
             const __m256i c1 = _mm256_set1_epi32(-1);
             const __m256i t1 = _mm256_xor_si256(t0, c1);
@@ -1018,7 +1018,7 @@ namespace ternarylogic {
             return t2;
         }
         // code=0x88, function=(C and B), lowered=(C and B), set=intel
-        template<> inline __m256i ternary<0x88>(const __m256i A, const __m256i B, const __m256i C) {
+        template<> inline __m256i ternary<0x88>(const __m256i, const __m256i B, const __m256i C) {
             const __m256i t0 = _mm256_and_si256(C, B);
             return t0;
         }
@@ -1149,7 +1149,7 @@ namespace ternarylogic {
             return t2;
         }
         // code=0x99, function=(C xnor B), lowered=((C xor B) xor 1), set=intel
-        template<> inline __m256i ternary<0x99>(const __m256i A, const __m256i B, const __m256i C) {
+        template<> inline __m256i ternary<0x99>(const __m256i, const __m256i B, const __m256i C) {
             const __m256i t0 = _mm256_xor_si256(C, B);
             const __m256i c1 = _mm256_set1_epi32(-1);
             const __m256i t1 = _mm256_xor_si256(t0, c1);
@@ -1202,7 +1202,7 @@ namespace ternarylogic {
             return t2;
         }
         // code=0xa0, function=(C and A), lowered=(C and A), set=intel
-        template<> inline __m256i ternary<0xa0>(const __m256i A, const __m256i B, const __m256i C) {
+        template<> inline __m256i ternary<0xa0>(const __m256i A, const __m256i, const __m256i C) {
             const __m256i t0 = _mm256_and_si256(C, A);
             return t0;
         }
@@ -1238,7 +1238,7 @@ namespace ternarylogic {
             return t2;
         }
         // code=0xa5, function=(C xnor A), lowered=((C xor A) xor 1), set=intel
-        template<> inline __m256i ternary<0xa5>(const __m256i A, const __m256i B, const __m256i C) {
+        template<> inline __m256i ternary<0xa5>(const __m256i A, const __m256i, const __m256i C) {
             const __m256i t0 = _mm256_xor_si256(C, A);
             const __m256i c1 = _mm256_set1_epi32(-1);
             const __m256i t1 = _mm256_xor_si256(t0, c1);
@@ -1274,7 +1274,7 @@ namespace ternarylogic {
             return t2;
         }
         // code=0xaa, function=C, lowered=C, set=intel
-        template<> inline __m256i ternary<0xaa>(const __m256i A, const __m256i B, const __m256i C) {
+        template<> inline __m256i ternary<0xaa>(const __m256i, const __m256i, const __m256i C) {
             return C;
         }
         // code=0xab, function=(C or (B nor A)), lowered=(C or ((B or A) xor 1)), set=intel
@@ -1308,7 +1308,7 @@ namespace ternarylogic {
             return t1;
         }
         // code=0xaf, function=(C or not (A)), lowered=(C or (A xor 1)), set=intel
-        template<> inline __m256i ternary<0xaf>(const __m256i A, const __m256i B, const __m256i C) {
+        template<> inline __m256i ternary<0xaf>(const __m256i A, const __m256i, const __m256i C) {
             const __m256i c1 = _mm256_set1_epi32(-1);
             const __m256i t0 = _mm256_xor_si256(A, c1);
             const __m256i t1 = _mm256_or_si256(C, t0);
@@ -1400,7 +1400,7 @@ namespace ternarylogic {
             return t1;
         }
         // code=0xbb, function=(C or not (B)), lowered=(C or (B xor 1)), set=intel
-        template<> inline __m256i ternary<0xbb>(const __m256i A, const __m256i B, const __m256i C) {
+        template<> inline __m256i ternary<0xbb>(const __m256i, const __m256i B, const __m256i C) {
             const __m256i c1 = _mm256_set1_epi32(-1);
             const __m256i t0 = _mm256_xor_si256(B, c1);
             const __m256i t1 = _mm256_or_si256(C, t0);
@@ -1437,7 +1437,7 @@ namespace ternarylogic {
             return t2;
         }
         // code=0xc0, function=(B and A), lowered=(B and A), set=intel
-        template<> inline __m256i ternary<0xc0>(const __m256i A, const __m256i B, const __m256i C) {
+        template<> inline __m256i ternary<0xc0>(const __m256i A, const __m256i B, const __m256i) {
             const __m256i t0 = _mm256_and_si256(B, A);
             return t0;
         }
@@ -1458,7 +1458,7 @@ namespace ternarylogic {
             return t2;
         }
         // code=0xc3, function=(B xnor A), lowered=((B xor A) xor 1), set=intel
-        template<> inline __m256i ternary<0xc3>(const __m256i A, const __m256i B, const __m256i C) {
+        template<> inline __m256i ternary<0xc3>(const __m256i A, const __m256i B, const __m256i) {
             const __m256i t0 = _mm256_xor_si256(B, A);
             const __m256i c1 = _mm256_set1_epi32(-1);
             const __m256i t1 = _mm256_xor_si256(t0, c1);
@@ -1525,7 +1525,7 @@ namespace ternarylogic {
             return t3;
         }
         // code=0xcc, function=B, lowered=B, set=intel
-        template<> inline __m256i ternary<0xcc>(const __m256i A, const __m256i B, const __m256i C) {
+        template<> inline __m256i ternary<0xcc>(const __m256i, const __m256i B, const __m256i) {
             return B;
         }
         // code=0xcd, function=(B or (A nor C)), lowered=(B or ((A or C) xor 1)), set=intel
@@ -1543,7 +1543,7 @@ namespace ternarylogic {
             return t1;
         }
         // code=0xcf, function=(B or not (A)), lowered=(B or (A xor 1)), set=intel
-        template<> inline __m256i ternary<0xcf>(const __m256i A, const __m256i B, const __m256i C) {
+        template<> inline __m256i ternary<0xcf>(const __m256i A, const __m256i B, const __m256i) {
             const __m256i c1 = _mm256_set1_epi32(-1);
             const __m256i t0 = _mm256_xor_si256(A, c1);
             const __m256i t1 = _mm256_or_si256(B, t0);
@@ -1650,7 +1650,7 @@ namespace ternarylogic {
             return t1;
         }
         // code=0xdd, function=(B or not (C)), lowered=(B or (C xor 1)), set=intel
-        template<> inline __m256i ternary<0xdd>(const __m256i A, const __m256i B, const __m256i C) {
+        template<> inline __m256i ternary<0xdd>(const __m256i, const __m256i B, const __m256i C) {
             const __m256i c1 = _mm256_set1_epi32(-1);
             const __m256i t0 = _mm256_xor_si256(C, c1);
             const __m256i t1 = _mm256_or_si256(B, t0);
@@ -1779,7 +1779,7 @@ namespace ternarylogic {
             return t2;
         }
         // code=0xee, function=(C or B), lowered=(C or B), set=intel
-        template<> inline __m256i ternary<0xee>(const __m256i A, const __m256i B, const __m256i C) {
+        template<> inline __m256i ternary<0xee>(const __m256i, const __m256i B, const __m256i C) {
             const __m256i t0 = _mm256_or_si256(C, B);
             return t0;
         }
@@ -1792,7 +1792,7 @@ namespace ternarylogic {
             return t2;
         }
         // code=0xf0, function=A, lowered=A, set=intel
-        template<> inline __m256i ternary<0xf0>(const __m256i A, const __m256i B, const __m256i C) {
+        template<> inline __m256i ternary<0xf0>(const __m256i A, const __m256i, const __m256i) {
             return A;
         }
         // code=0xf1, function=(A or (B nor C)), lowered=(A or ((B or C) xor 1)), set=intel
@@ -1810,7 +1810,7 @@ namespace ternarylogic {
             return t1;
         }
         // code=0xf3, function=(A or not (B)), lowered=(A or (B xor 1)), set=intel
-        template<> inline __m256i ternary<0xf3>(const __m256i A, const __m256i B, const __m256i C) {
+        template<> inline __m256i ternary<0xf3>(const __m256i A, const __m256i B, const __m256i) {
             const __m256i c1 = _mm256_set1_epi32(-1);
             const __m256i t0 = _mm256_xor_si256(B, c1);
             const __m256i t1 = _mm256_or_si256(A, t0);
@@ -1823,7 +1823,7 @@ namespace ternarylogic {
             return t1;
         }
         // code=0xf5, function=(A or not (C)), lowered=(A or (C xor 1)), set=intel
-        template<> inline __m256i ternary<0xf5>(const __m256i A, const __m256i B, const __m256i C) {
+        template<> inline __m256i ternary<0xf5>(const __m256i A, const __m256i, const __m256i C) {
             const __m256i c1 = _mm256_set1_epi32(-1);
             const __m256i t0 = _mm256_xor_si256(C, c1);
             const __m256i t1 = _mm256_or_si256(A, t0);
@@ -1858,7 +1858,7 @@ namespace ternarylogic {
             return t2;
         }
         // code=0xfa, function=(C or A), lowered=(C or A), set=intel
-        template<> inline __m256i ternary<0xfa>(const __m256i A, const __m256i B, const __m256i C) {
+        template<> inline __m256i ternary<0xfa>(const __m256i A, const __m256i, const __m256i C) {
             const __m256i t0 = _mm256_or_si256(C, A);
             return t0;
         }
@@ -1871,7 +1871,7 @@ namespace ternarylogic {
             return t2;
         }
         // code=0xfc, function=(B or A), lowered=(B or A), set=intel
-        template<> inline __m256i ternary<0xfc>(const __m256i A, const __m256i B, const __m256i C) {
+        template<> inline __m256i ternary<0xfc>(const __m256i A, const __m256i B, const __m256i) {
             const __m256i t0 = _mm256_or_si256(B, A);
             return t0;
         }
@@ -1890,7 +1890,7 @@ namespace ternarylogic {
             return t1;
         }
         // code=0xff, function=1, lowered=1, set=intel
-        template<> inline __m256i ternary<0xff>(const __m256i A, const __m256i B, const __m256i C) {
+        template<> inline __m256i ternary<0xff>(const __m256i, const __m256i, const __m256i) {
             const __m256i c1 = _mm256_set1_epi32(-1);
             return c1;
         }

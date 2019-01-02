@@ -69,7 +69,6 @@ namespace ternarylogic
 			return ternarylogic::bitset::ternary<K, S>(a, b, c);
 		}
 
-
 		template<bf_type K>
 		__forceinline constexpr uint32_t ternary_intern(const uint32_t a, const uint32_t b, const uint32_t c)
 		{
@@ -95,7 +94,7 @@ namespace ternarylogic
 		}
 
 		template<bf_type K>
-		__forceinline constexpr __m512i ternary_intern(const __m512i& a, const __m512i& b, const __m512i& c)
+		__forceinline constexpr __m512i ternary_intern(const __m512i a, const __m512i b, const __m512i c)
 		{
 			return ternarylogic::avx512raw::ternary<K>(a, b, c); 
 		}
@@ -425,7 +424,7 @@ namespace ternarylogic
 		}
  	
 		template<typename T>
-		inline constexpr T ternary_reduced(const T a, const T b, const T c, const bf_type k)
+		inline constexpr T ternary_reduced(const T& a, const T& b, const T& c, const bf_type k)
 		{
 			// method is generated with test::create_method_reduced_ternary()
 			switch (k)
@@ -691,7 +690,7 @@ namespace ternarylogic
 		}
 
 		template<typename T>
-		inline constexpr T ternary_no_vpternlog(const T a, const T b, const T c, const bf_type k)
+		inline constexpr T ternary_no_vpternlog(const T& a, const T& b, const T& c, const bf_type k)
 		{
 			switch (k)
 			{

@@ -39,7 +39,7 @@ namespace ternarylogic {
 			};
 			// code=0x03, function=(B nor A), lowered=not ((B or A)), set=intel
 			template<size_t S> struct ternary_struct<0x03, S> {
-				static constexpr std::bitset<S> ternary(const std::bitset<S>& A, const std::bitset<S>& B, const std::bitset<S>& C) {
+				static constexpr std::bitset<S> ternary(const std::bitset<S>& A, const std::bitset<S>& B, const std::bitset<S>&) {
 					const std::bitset<S> t0 = B | A;
 					const std::bitset<S> t1 = ~t0;
 					return t1;
@@ -56,7 +56,7 @@ namespace ternarylogic {
 			};
 			// code=0x05, function=(C nor A), lowered=not ((C or A)), set=intel
 			template<size_t S> struct ternary_struct<0x05, S> {
-				static constexpr std::bitset<S> ternary(const std::bitset<S>& A, const std::bitset<S>& B, const std::bitset<S>& C) {
+				static constexpr std::bitset<S> ternary(const std::bitset<S>& A, const std::bitset<S>&, const std::bitset<S>& C) {
 					const std::bitset<S> t0 = C | A;
 					const std::bitset<S> t1 = ~t0;
 					return t1;
@@ -101,7 +101,7 @@ namespace ternarylogic {
 			};
 			// code=0x0a, function=(C and not (A)), lowered=(C and not (A)), set=intel
 			template<size_t S> struct ternary_struct<0x0a, S> {
-				static constexpr std::bitset<S> ternary(const std::bitset<S>& A, const std::bitset<S>& B, const std::bitset<S>& C) {
+				static constexpr std::bitset<S> ternary(const std::bitset<S>& A, const std::bitset<S>&, const std::bitset<S>& C) {
 					const std::bitset<S> t0 = ~A;
 					const std::bitset<S> t1 = C & t0;
 					return t1;
@@ -2022,7 +2022,7 @@ namespace ternarylogic {
 			};
 			// code=0xcf, function=(B or not (A)), lowered=(B or not (A)), set=intel
 			template<size_t S> struct ternary_struct<0xcf, S> {
-				static constexpr std::bitset<S> ternary(const std::bitset<S>& A, const std::bitset<S>& B, const std::bitset<S>& C) {
+				static constexpr std::bitset<S> ternary(const std::bitset<S>& A, const std::bitset<S>& B, const std::bitset<S>&) {
 					const std::bitset<S> t0 = ~A;
 					const std::bitset<S> t1 = B | t0;
 					return t1;
@@ -2457,7 +2457,7 @@ namespace ternarylogic {
 			// code=0xff, function=1, lowered=1, set=intel
 			template<size_t S> struct ternary_struct<0xff, S> {
 				static constexpr std::bitset<S> ternary(const std::bitset<S>&, const std::bitset<S>&, const std::bitset<S>&) {
-					const std::bitset<S>& c1 = std::bitset<S>().set();
+					const std::bitset<S> c1 = std::bitset<S>().set();
 					return c1;
 				}
 			};
