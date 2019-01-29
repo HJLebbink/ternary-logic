@@ -9,6 +9,6 @@ int main()
 	printf("\nGoing to run:\n");
 	ternarylogic::test::tests();
 	printf("\nPress RETURN to finish:");
-	getchar();
+	static_cast<void>(getchar());
 	return 0;
 }

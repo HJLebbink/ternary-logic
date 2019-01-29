@@ -1020,7 +1020,7 @@ namespace ternarylogic
 					std::cout << "i = " << i << std::endl;
 					std::cout << "sse:    " << std::bitset<8>(r1.m128i_u8[0]).to_string() << std::endl;
 					std::cout << "avx512: " << std::bitset<8>(r2.m512i_u8[0]).to_string() << std::endl;
-					getchar();
+					static_cast<void>(getchar());
 				}
 			}
 		}
@@ -1047,7 +1047,7 @@ namespace ternarylogic
 					std::cout << "i = " << i << std::endl;
 					std::cout << "sse:    " << std::bitset<8>(r1.m128i_u8[0]).to_string() << std::endl;
 					std::cout << "avx512: " << std::bitset<8>(r2.m256i_u8[0]).to_string() << std::endl;
-					getchar();
+					static_cast<void>(getchar());
 				}
 			}
 		}
@@ -1070,7 +1070,7 @@ namespace ternarylogic
 					std::cout << "i = " << i << std::endl;
 					std::cout << "not reduced: " << std::bitset<8>(r1.m128i_u8[0]).to_string() << std::endl;
 					std::cout << "reduced:     " << std::bitset<8>(r2.m128i_u8[0]).to_string() << std::endl;
-					getchar();
+					static_cast<void>(getchar());
 				}
 			}
 		}
@@ -1093,7 +1093,7 @@ namespace ternarylogic
 					std::cout << "i = " << i << std::endl;
 					std::cout << "not reduced: " << std::bitset<8>(r1.m512i_u8[0]).to_string() << std::endl;
 					std::cout << "reduced:     " << std::bitset<8>(r2.m512i_u8[0]).to_string() << std::endl;
-					getchar();
+					static_cast<void>(getchar());
 				}
 			}
 		}
@@ -1123,7 +1123,7 @@ namespace ternarylogic
 					std::cout << "i = " << i << std::endl;
 					std::cout << "sse:    " << std::bitset<8>(r1_char).to_string() << std::endl;
 					std::cout << "x86 32: " << std::bitset<8>(r2_char).to_string() << std::endl;
-					getchar();
+					static_cast<void>(getchar());
 				}
 			}
 		}
@@ -1153,7 +1153,7 @@ namespace ternarylogic
 					std::cout << "i = " << i << std::endl;
 					std::cout << "sse:    " << std::bitset<8>(r1_char).to_string() << std::endl;
 					std::cout << "x86 64: " << std::bitset<8>(r2_char).to_string() << std::endl;
-					getchar();
+					static_cast<void>(getchar());
 				}
 			}
 		}
@@ -1183,7 +1183,7 @@ namespace ternarylogic
 					std::cout << "i = " << i << std::endl;
 					std::cout << "sse:    " << std::bitset<8>(r1_char).to_string() << std::endl;
 					std::cout << "x86 32: " << std::bitset<8>(r2_char).to_string() << std::endl;
-					getchar();
+					static_cast<void>(getchar());
 				}
 			}
 		}
