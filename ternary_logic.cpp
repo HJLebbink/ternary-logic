@@ -70,31 +70,31 @@ namespace ternarylogic
 		}
 
 		template<bf_type K>
-		__forceinline constexpr uint32_t ternary_intern(const uint32_t a, const uint32_t b, const uint32_t c)
+		__forceinline constexpr uint32_t ternary_intern(const uint32_t a, const uint32_t b, const uint32_t c) noexcept
 		{
 			return ternarylogic::x86_32::ternary<K>(a, b, c);
 		}
 
 		template<bf_type K>
-		__forceinline constexpr uint64_t ternary_intern(const uint64_t a, const uint64_t b, const uint64_t c)
+		__forceinline constexpr uint64_t ternary_intern(const uint64_t a, const uint64_t b, const uint64_t c) noexcept
 		{
 			return ternarylogic::x86_64::ternary<K>(a, b, c);
 		}
 
 		template<bf_type K>
-		__forceinline constexpr __m128i ternary_intern(const __m128i a, const __m128i b, const __m128i c)
+		__forceinline constexpr __m128i ternary_intern(const __m128i a, const __m128i b, const __m128i c) noexcept
 		{
 			return ternarylogic::sse::ternary<K>(a, b, c);
 		}
 
 		template<bf_type K>
-		__forceinline constexpr __m256i ternary_intern(const __m256i a, const __m256i b, const __m256i c)
+		__forceinline constexpr __m256i ternary_intern(const __m256i a, const __m256i b, const __m256i c) noexcept
 		{
 			return ternarylogic::avx2::ternary<K>(a, b, c);
 		}
 
 		template<bf_type K>
-		__forceinline constexpr __m512i ternary_intern(const __m512i a, const __m512i b, const __m512i c)
+		__forceinline constexpr __m512i ternary_intern(const __m512i a, const __m512i b, const __m512i c) noexcept
 		{
 			return ternarylogic::avx512raw::ternary<K>(a, b, c); 
 		}
@@ -102,38 +102,38 @@ namespace ternarylogic
 
 		#pragma region Ternary Intern No Vpternlog
 		template<bf_type K>
-		__forceinline constexpr uint32_t ternary_intern_no_vpternlog(const uint32_t a, const uint32_t b, const uint32_t c)
+		__forceinline constexpr uint32_t ternary_intern_no_vpternlog(const uint32_t a, const uint32_t b, const uint32_t c) noexcept
 		{
 			return ternarylogic::x86_32::ternary<K>(a, b, c);
 		}
 
 		template<bf_type K>
-		__forceinline constexpr uint64_t ternary_intern_no_vpternlog(const uint64_t a, const uint64_t b, const uint64_t c)
+		__forceinline constexpr uint64_t ternary_intern_no_vpternlog(const uint64_t a, const uint64_t b, const uint64_t c) noexcept
 		{
 			return ternarylogic::x86_64::ternary<K>(a, b, c);
 		}
 
 		template<bf_type K>
-		__forceinline constexpr __m128i ternary_intern_no_vpternlog(const __m128i a, const __m128i b, const __m128i c)
+		__forceinline constexpr __m128i ternary_intern_no_vpternlog(const __m128i a, const __m128i b, const __m128i c) noexcept
 		{
 			return ternarylogic::sse::ternary<K>(a, b, c);
 		}
 
 		template<bf_type K>
-		__forceinline constexpr __m256i ternary_intern_no_vpternlog(const __m256i a, const __m256i b, const __m256i c)
+		__forceinline constexpr __m256i ternary_intern_no_vpternlog(const __m256i a, const __m256i b, const __m256i c) noexcept
 		{
 			return ternarylogic::avx2::ternary<K>(a, b, c);
 		}
 
 		template<bf_type K>
-		__forceinline constexpr __m512i ternary_intern_no_vpternlog(const __m512i a, const __m512i b, const __m512i c)
+		__forceinline constexpr __m512i ternary_intern_no_vpternlog(const __m512i a, const __m512i b, const __m512i c) noexcept
 		{
 			return ternarylogic::avx512::ternary<K>(a, b, c);
 		}
 		#pragma endregion
 
 		template<typename T>
-		inline constexpr T ternary_not_reduced(const T& a, const T& b, const T& c, const bf_type k)
+		inline constexpr T ternary_not_reduced(const T& a, const T& b, const T& c, const bf_type k) noexcept
 		{
 			switch (k)
 			{
@@ -424,7 +424,7 @@ namespace ternarylogic
 		}
  	
 		template<typename T>
-		inline constexpr T ternary_reduced(const T& a, const T& b, const T& c, const bf_type k)
+		inline constexpr T ternary_reduced(const T& a, const T& b, const T& c, const bf_type k) noexcept
 		{
 			// method is generated with test::create_method_reduced_ternary()
 			switch (k)
@@ -690,7 +690,7 @@ namespace ternarylogic
 		}
 
 		template<typename T>
-		inline constexpr T ternary_no_vpternlog(const T& a, const T& b, const T& c, const bf_type k)
+		inline constexpr T ternary_no_vpternlog(const T& a, const T& b, const T& c, const bf_type k) noexcept
 		{
 			switch (k)
 			{
@@ -983,14 +983,14 @@ namespace ternarylogic
 	
 
 	template<bf_type K, typename T>
-	inline constexpr T ternary(const T a, const T b, const T c)
+	inline constexpr T ternary(const T a, const T b, const T c) noexcept
 	{
 		return priv::ternary_intern<K>(a, b, c);
 		//return priv::ternary_intern_no_vpternlog<K>(a, b, c);
 	}
 
 	template<typename T>
-	inline constexpr T ternary(const T a, const T b, const T c, const bf_type k)
+	inline constexpr T ternary(const T a, const T b, const T c, const bf_type k) noexcept
 	{
 		return priv::ternary_reduced(a, b, c, k);
 	}
