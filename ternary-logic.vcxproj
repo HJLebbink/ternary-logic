@@ -29,6 +29,9 @@
     <ClCompile Include="ternary_x86_64.cpp" />
     <ClCompile Include="ternary_xop.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="shuffle_vars.h" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{9D24E5A1-D2DF-4A00-A322-D430E8727CF5}</ProjectGuid>

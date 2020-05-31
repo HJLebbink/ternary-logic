@@ -64,37 +64,37 @@ namespace ternarylogic
 
 
 		template<bf_type K, size_t S>
-		__forceinline constexpr std::bitset<S> ternary_intern(const std::bitset<S>& a, const std::bitset<S>& b, const std::bitset<S>& c)
+		[[nodiscard]] __forceinline constexpr std::bitset<S> ternary_intern(const std::bitset<S>& a, const std::bitset<S>& b, const std::bitset<S>& c)
 		{
 			return ternarylogic::bitset::ternary<K, S>(a, b, c);
 		}
 
 		template<bf_type K>
-		__forceinline constexpr uint32_t ternary_intern(const uint32_t a, const uint32_t b, const uint32_t c) noexcept
+		[[nodiscard]] __forceinline constexpr uint32_t ternary_intern(const uint32_t a, const uint32_t b, const uint32_t c) noexcept
 		{
 			return ternarylogic::x86_32::ternary<K>(a, b, c);
 		}
 
 		template<bf_type K>
-		__forceinline constexpr uint64_t ternary_intern(const uint64_t a, const uint64_t b, const uint64_t c) noexcept
+		[[nodiscard]] __forceinline constexpr uint64_t ternary_intern(const uint64_t a, const uint64_t b, const uint64_t c) noexcept
 		{
 			return ternarylogic::x86_64::ternary<K>(a, b, c);
 		}
 
 		template<bf_type K>
-		__forceinline constexpr __m128i ternary_intern(const __m128i a, const __m128i b, const __m128i c) noexcept
+		[[nodiscard]] __forceinline constexpr __m128i ternary_intern(const __m128i a, const __m128i b, const __m128i c) noexcept
 		{
 			return ternarylogic::sse::ternary<K>(a, b, c);
 		}
 
 		template<bf_type K>
-		__forceinline constexpr __m256i ternary_intern(const __m256i a, const __m256i b, const __m256i c) noexcept
+		[[nodiscard]] __forceinline constexpr __m256i ternary_intern(const __m256i a, const __m256i b, const __m256i c) noexcept
 		{
 			return ternarylogic::avx2::ternary<K>(a, b, c);
 		}
 
 		template<bf_type K>
-		__forceinline constexpr __m512i ternary_intern(const __m512i a, const __m512i b, const __m512i c) noexcept
+		[[nodiscard]] __forceinline constexpr __m512i ternary_intern(const __m512i a, const __m512i b, const __m512i c) noexcept
 		{
 			return ternarylogic::avx512raw::ternary<K>(a, b, c); 
 		}
@@ -102,38 +102,38 @@ namespace ternarylogic
 
 		#pragma region Ternary Intern No Vpternlog
 		template<bf_type K>
-		__forceinline constexpr uint32_t ternary_intern_no_vpternlog(const uint32_t a, const uint32_t b, const uint32_t c) noexcept
+		[[nodiscard]] __forceinline constexpr uint32_t ternary_intern_no_vpternlog(const uint32_t a, const uint32_t b, const uint32_t c) noexcept
 		{
 			return ternarylogic::x86_32::ternary<K>(a, b, c);
 		}
 
 		template<bf_type K>
-		__forceinline constexpr uint64_t ternary_intern_no_vpternlog(const uint64_t a, const uint64_t b, const uint64_t c) noexcept
+		[[nodiscard]] __forceinline constexpr uint64_t ternary_intern_no_vpternlog(const uint64_t a, const uint64_t b, const uint64_t c) noexcept
 		{
 			return ternarylogic::x86_64::ternary<K>(a, b, c);
 		}
 
 		template<bf_type K>
-		__forceinline constexpr __m128i ternary_intern_no_vpternlog(const __m128i a, const __m128i b, const __m128i c) noexcept
+		[[nodiscard]] __forceinline constexpr __m128i ternary_intern_no_vpternlog(const __m128i a, const __m128i b, const __m128i c) noexcept
 		{
 			return ternarylogic::sse::ternary<K>(a, b, c);
 		}
 
 		template<bf_type K>
-		__forceinline constexpr __m256i ternary_intern_no_vpternlog(const __m256i a, const __m256i b, const __m256i c) noexcept
+		[[nodiscard]] __forceinline constexpr __m256i ternary_intern_no_vpternlog(const __m256i a, const __m256i b, const __m256i c) noexcept
 		{
 			return ternarylogic::avx2::ternary<K>(a, b, c);
 		}
 
 		template<bf_type K>
-		__forceinline constexpr __m512i ternary_intern_no_vpternlog(const __m512i a, const __m512i b, const __m512i c) noexcept
+		[[nodiscard]] __forceinline constexpr __m512i ternary_intern_no_vpternlog(const __m512i a, const __m512i b, const __m512i c) noexcept
 		{
 			return ternarylogic::avx512::ternary<K>(a, b, c);
 		}
 		#pragma endregion
 
 		template<typename T>
-		inline constexpr T ternary_not_reduced(const T& a, const T& b, const T& c, const bf_type k) noexcept
+		[[nodiscard]] constexpr T ternary_not_reduced(const T& a, const T& b, const T& c, const bf_type k) noexcept
 		{
 			switch (k)
 			{
@@ -424,7 +424,7 @@ namespace ternarylogic
 		}
  	
 		template<typename T>
-		inline constexpr T ternary_reduced(const T& a, const T& b, const T& c, const bf_type k) noexcept
+		[[nodiscard]] constexpr T ternary_reduced(const T& a, const T& b, const T& c, const bf_type k) noexcept
 		{
 			// method is generated with test::create_method_reduced_ternary()
 			switch (k)
@@ -446,7 +446,7 @@ namespace ternarylogic
 				case 14: return priv::ternary_intern<14>(a, b, c);
 				case 15: return priv::ternary_intern<15>(a, b, c);
 				case 16: return priv::ternary_intern<2>(c, b, a);
-				case 17: return priv::ternary_intern<3>(c, b, a);
+ 				case 17: return priv::ternary_intern<3>(c, b, a);
 				case 18: return priv::ternary_intern<6>(b, a, c);
 				case 19: return priv::ternary_intern<7>(b, a, c);
 				case 20: return priv::ternary_intern<6>(c, b, a);
@@ -690,7 +690,7 @@ namespace ternarylogic
 		}
 
 		template<typename T>
-		inline constexpr T ternary_no_vpternlog(const T& a, const T& b, const T& c, const bf_type k) noexcept
+		[[nodiscard]] constexpr T ternary_no_vpternlog(const T& a, const T& b, const T& c, const bf_type k) noexcept
 		{
 			switch (k)
 			{
@@ -983,14 +983,14 @@ namespace ternarylogic
 	
 
 	template<bf_type K, typename T>
-	inline constexpr T ternary(const T a, const T b, const T c) noexcept
+	[[nodiscard]] constexpr T ternary(const T a, const T b, const T c) noexcept
 	{
 		return priv::ternary_intern<K>(a, b, c);
 		//return priv::ternary_intern_no_vpternlog<K>(a, b, c);
 	}
 
 	template<typename T>
-	inline constexpr T ternary(const T a, const T b, const T c, const bf_type k) noexcept
+	[[nodiscard]] constexpr T ternary(const T a, const T b, const T c, const bf_type k) noexcept
 	{
 		return priv::ternary_reduced(a, b, c, k);
 	}
@@ -999,7 +999,7 @@ namespace ternarylogic
 	{
 		void inline test_equal_sse_equals_avx512()
 		{
-			std::cout << "test_equal_sse_equals_avx512" << std::endl;
+			std::cout << "ternary_logic::test_equal_sse_equals_avx512" << std::endl;
 
 			const auto a1 = _mm_set1_epi8(0b10101010);
 			const auto b1 = _mm_set1_epi8(0b11001100);
@@ -1026,7 +1026,7 @@ namespace ternarylogic
 		}
 		void inline test_equal_sse_equals_avx2()
 		{
-			std::cout << "test_equal_sse_equals_avx2" << std::endl;
+			std::cout << "ternary_logic::test_equal_sse_equals_avx2" << std::endl;
 
 			const auto a1 = _mm_set1_epi8(0b10101010);
 			const auto b1 = _mm_set1_epi8(0b11001100);
@@ -1053,7 +1053,7 @@ namespace ternarylogic
 		}
 		void inline test_equal_raw_equals_reduced()
 		{
-			std::cout << "test_equal_raw_equals_reduced" << std::endl;
+			std::cout << "ternary_logic::test_equal_raw_equals_reduced" << std::endl;
 
 			const auto a = _mm_set1_epi8(0b10101010);
 			const auto b = _mm_set1_epi8(0b11001100);
@@ -1076,7 +1076,7 @@ namespace ternarylogic
 		}
 		void inline test_equal_avx512_equals_avx512raw()
 		{
-			std::cout << "test_equal_avx512_equals_avx512raw" << std::endl;
+			std::cout << "ternary_logic::test_equal_avx512_equals_avx512raw" << std::endl;
 
 			const auto a = _mm512_set1_epi8(0b10101010);
 			const auto b = _mm512_set1_epi8(0b11001100);
@@ -1099,7 +1099,7 @@ namespace ternarylogic
 		}
 		void inline test_equal_x86_32_equals_sse()
 		{
-			std::cout << "test_equal_x86_32_equals_sse" << std::endl;
+			std::cout << "ternary_logic::test_equal_x86_32_equals_sse" << std::endl;
 
 			const auto a1 = _mm_set1_epi8(0b10101010);
 			const auto b1 = _mm_set1_epi8(0b11001100);
@@ -1129,7 +1129,7 @@ namespace ternarylogic
 		}
 		void inline test_equal_x86_64_equals_sse()
 		{
-			std::cout << "test_equal_x86_64_equals_sse" << std::endl;
+			std::cout << "ternary_logic::test_equal_x86_64_equals_sse" << std::endl;
 
 			const auto a1 = _mm_set1_epi8(0b10101010);
 			const auto b1 = _mm_set1_epi8(0b11001100);
@@ -1159,7 +1159,7 @@ namespace ternarylogic
 		}
 		void inline test_equal_bitset_equals_sse()
 		{
-			std::cout << "test_equal_bitset_equals_sse" << std::endl;
+			std::cout << "ternary_logic::test_equal_bitset_equals_sse" << std::endl;
 
 			const auto a1 = std::bitset<8>(0b10101010);
 			const auto b1 = std::bitset<8>(0b11001100);
@@ -1246,7 +1246,6 @@ namespace ternarylogic
 			test_speed_vpternlog<20>();
 		}
 
-
 		void inline tests()
 		{
 			test_equal_sse_equals_avx512();
@@ -1256,8 +1255,6 @@ namespace ternarylogic
 			test_equal_bitset_equals_sse();
 			test_equal_raw_equals_reduced();
 			test_equal_avx512_equals_avx512raw();
-
-
 
 			//test_speed_vpternlog_all();
 		}
