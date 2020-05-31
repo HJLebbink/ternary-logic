@@ -1001,13 +1001,13 @@ namespace ternarylogic
 		{
 			std::cout << "ternary_logic::test_equal_sse_equals_avx512" << std::endl;
 
-			const auto a1 = _mm_set1_epi8(0b10101010);
-			const auto b1 = _mm_set1_epi8(0b11001100);
-			const auto c1 = _mm_set1_epi8(0b11110000);
+			const auto a1 = _mm_set1_epi8((unsigned char)0b10101010);
+			const auto b1 = _mm_set1_epi8((unsigned char)0b11001100);
+			const auto c1 = _mm_set1_epi8((unsigned char)0b11110000);
 
-			const auto a2 = _mm512_set1_epi8(0b10101010);
-			const auto b2 = _mm512_set1_epi8(0b11001100);
-			const auto c2 = _mm512_set1_epi8(0b11110000);
+			const auto a2 = _mm512_set1_epi8((unsigned char)0b10101010);
+			const auto b2 = _mm512_set1_epi8((unsigned char)0b11001100);
+			const auto c2 = _mm512_set1_epi8((unsigned char)0b11110000);
 
 			for (auto i = 0; i <= 0xFF; ++i)
 			{
@@ -1028,13 +1028,13 @@ namespace ternarylogic
 		{
 			std::cout << "ternary_logic::test_equal_sse_equals_avx2" << std::endl;
 
-			const auto a1 = _mm_set1_epi8(0b10101010);
-			const auto b1 = _mm_set1_epi8(0b11001100);
-			const auto c1 = _mm_set1_epi8(0b11110000);
+			const auto a1 = _mm_set1_epi8((unsigned char)0b10101010);
+			const auto b1 = _mm_set1_epi8((unsigned char)0b11001100);
+			const auto c1 = _mm_set1_epi8((unsigned char)0b11110000);
 
-			const auto a2 = _mm256_set1_epi8(0b10101010);
-			const auto b2 = _mm256_set1_epi8(0b11001100);
-			const auto c2 = _mm256_set1_epi8(0b11110000);
+			const auto a2 = _mm256_set1_epi8((unsigned char)0b10101010);
+			const auto b2 = _mm256_set1_epi8((unsigned char)0b11001100);
+			const auto c2 = _mm256_set1_epi8((unsigned char)0b11110000);
 
 			for (auto i = 0; i <= 0xFF; ++i)
 			{
@@ -1055,9 +1055,9 @@ namespace ternarylogic
 		{
 			std::cout << "ternary_logic::test_equal_raw_equals_reduced" << std::endl;
 
-			const auto a = _mm_set1_epi8(0b10101010);
-			const auto b = _mm_set1_epi8(0b11001100);
-			const auto c = _mm_set1_epi8(0b11110000);
+			const auto a = _mm_set1_epi8((unsigned char)0b10101010);
+			const auto b = _mm_set1_epi8((unsigned char)0b11001100);
+			const auto c = _mm_set1_epi8((unsigned char)0b11110000);
 
 			for (auto i = 0; i <= 0xFF; ++i)
 			{
@@ -1078,9 +1078,9 @@ namespace ternarylogic
 		{
 			std::cout << "ternary_logic::test_equal_avx512_equals_avx512raw" << std::endl;
 
-			const auto a = _mm512_set1_epi8(0b10101010);
-			const auto b = _mm512_set1_epi8(0b11001100);
-			const auto c = _mm512_set1_epi8(0b11110000);
+			const auto a = _mm512_set1_epi8((unsigned char)0b10101010);
+			const auto b = _mm512_set1_epi8((unsigned char)0b11001100);
+			const auto c = _mm512_set1_epi8((unsigned char)0b11110000);
 
 			for (auto i = 0; i <= 0xFF; ++i)
 			{
@@ -1101,9 +1101,9 @@ namespace ternarylogic
 		{
 			std::cout << "ternary_logic::test_equal_x86_32_equals_sse" << std::endl;
 
-			const auto a1 = _mm_set1_epi8(0b10101010);
-			const auto b1 = _mm_set1_epi8(0b11001100);
-			const auto c1 = _mm_set1_epi8(0b11110000);
+			const auto a1 = _mm_set1_epi8((unsigned char)0b10101010);
+			const auto b1 = _mm_set1_epi8((unsigned char)0b11001100);
+			const auto c1 = _mm_set1_epi8((unsigned char)0b11110000);
 
 			const unsigned int a2 = 0b10101010;
 			const unsigned int b2 = 0b11001100;
@@ -1131,9 +1131,9 @@ namespace ternarylogic
 		{
 			std::cout << "ternary_logic::test_equal_x86_64_equals_sse" << std::endl;
 
-			const auto a1 = _mm_set1_epi8(0b10101010);
-			const auto b1 = _mm_set1_epi8(0b11001100);
-			const auto c1 = _mm_set1_epi8(0b11110000);
+			const auto a1 = _mm_set1_epi8((unsigned char)0b10101010);
+			const auto b1 = _mm_set1_epi8((unsigned char)0b11001100);
+			const auto c1 = _mm_set1_epi8((unsigned char)0b11110000);
 
 			const unsigned long long a2 = 0b10101010;
 			const unsigned long long b2 = 0b11001100;
