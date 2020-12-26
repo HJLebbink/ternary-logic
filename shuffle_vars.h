@@ -9,7 +9,7 @@ namespace ternarylogic::swap
 {
 	namespace 
 	{
-		[[nodiscard]] constexpr int shuffle_bits(const int i, const int pos7, const int pos6, const int pos5, const int pos4, const int pos3, const int pos2, const int pos1, const int pos0) noexcept
+		[[nodiscard]] inline constexpr int shuffle_bits(const int i, const int pos7, const int pos6, const int pos5, const int pos4, const int pos3, const int pos2, const int pos1, const int pos0) noexcept
 		{
 			const int b0 = (i >> pos0) & 1;
 			const int b1 = (i >> pos1) & 1;
@@ -41,7 +41,7 @@ namespace ternarylogic::swap
 	/// </summary>
 	/// <param name="bf">Boolean Function to be updated</param>
 	/// <returns>The Boolean Function for the variable shuffle from abc to abc</returns>
-	[[nodiscard]] constexpr int shuffle_vars_abc(const int bf) noexcept
+	[[nodiscard]] inline constexpr int shuffle_vars_abc(const int bf) noexcept
 	{
 		return bf;
 	}
@@ -51,7 +51,7 @@ namespace ternarylogic::swap
 	/// </summary>
 	/// <param name="bf">Boolean Function to be updated</param>
 	/// <returns>The Boolean Function for the variable shuffle from abc to bac</returns>
-	[[nodiscard]] constexpr int shuffle_vars_bac(const int bf) noexcept
+	[[nodiscard]] inline constexpr int shuffle_vars_bac(const int bf) noexcept
 	{
 		return shuffle_bits(bf, 7, 6, 3, 2, 5, 4, 1, 0);
 	}
@@ -61,7 +61,7 @@ namespace ternarylogic::swap
 	/// </summary>
 	/// <param name="bf">Boolean Function to be updated</param>
 	/// <returns>The Boolean Function for the variable shuffle from abc to acb</returns>
-	[[nodiscard]] constexpr int shuffle_vars_acb(const int bf) noexcept
+	[[nodiscard]] inline constexpr int shuffle_vars_acb(const int bf) noexcept
 	{
 		return shuffle_bits(bf, 7, 5, 6, 4, 3, 1, 2, 0);
 	}
@@ -71,7 +71,7 @@ namespace ternarylogic::swap
 	/// </summary>
 	/// <param name="bf">Boolean Function to be updated</param>
 	/// <returns>The Boolean Function for the variable shuffle from abc to cba</returns>
-	[[nodiscard]] constexpr int shuffle_vars_cba(const int bf) noexcept
+	[[nodiscard]] inline constexpr int shuffle_vars_cba(const int bf) noexcept
 	{
 		return shuffle_bits(bf, 7, 3, 5, 1, 6, 2, 4, 0);
 	}
@@ -81,7 +81,7 @@ namespace ternarylogic::swap
 	/// </summary>
 	/// <param name="bf">Boolean Function to be updated</param>
 	/// <returns>The Boolean Function for the variable shuffle from abc to cab</returns>
-	[[nodiscard]] constexpr int shuffle_vars_cab(const int bf) noexcept
+	[[nodiscard]] inline constexpr int shuffle_vars_cab(const int bf) noexcept
 	{
 		//return detail::shuffle_bits(i, 7, 3, 6, 2, 5, 1, 4, 0); // TODO find why bca and cab shuffle is switched??
 		return shuffle_bits(bf, 7, 5, 3, 1, 6, 4, 2, 0);
@@ -92,7 +92,7 @@ namespace ternarylogic::swap
 	/// </summary>
 	/// <param name="bf">Boolean Function to be updated</param>
 	/// <returns>The Boolean Function for the variable shuffle from abc to bca</returns>
-	[[nodiscard]] constexpr int shuffle_vars_bca(const int bf) noexcept
+	[[nodiscard]] inline constexpr int shuffle_vars_bca(const int bf) noexcept
 	{
 		//return detail::shuffle_bits(i, 7, 5, 3, 1, 6, 4, 2, 0);
 		return shuffle_bits(bf, 7, 3, 6, 2, 5, 1, 4, 0);
@@ -264,9 +264,9 @@ namespace ternarylogic::swap
 		void inline test_shuffle_variables() {
 			std::cout << "shuffle_vars::test_shuffle_variables" << std::endl;
 
-			const unsigned long long a = 0b10101010;
-			const unsigned long long b = 0b11001100;
-			const unsigned long long c = 0b11110000;
+			constexpr unsigned long long a = 0b10101010;
+			constexpr unsigned long long b = 0b11001100;
+			constexpr unsigned long long c = 0b11110000;
 
 			for (int i = 0; i <= 0xFF; ++i)
 			{
