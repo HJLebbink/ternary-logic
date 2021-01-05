@@ -981,6 +981,23 @@ namespace ternarylogic
 		}
 	}
 	
+	namespace reference
+	{
+		template<typename T>
+		[[nodiscard]] constexpr inline T vpternlog(const T& a, const T& b, const T& c, const bf_type k) noexcept 
+		{
+			constexpr int n_bits = sizeof(T) * 8;
+			T result = 0;
+			for (int i = 0; i < n_bits; ++i) {
+				const T index_a = ((a >> i) & 1) << 2;
+				const T index_b = ((b >> i) & 1) << 1;
+				const T index_c = ((c >> i) & 1) << 0;
+				const T index = index_a | index_b | index_c;
+				result |= ((k >> index) & 0x1) << i;
+			}
+			return result;
+		}
+	}
 
 	template<bf_type K, typename T>
 	[[nodiscard]] constexpr T ternary(const T a, const T b, const T c) noexcept
@@ -997,6 +1014,65 @@ namespace ternarylogic
 
 	namespace test
 	{
+		void inline test_equal_referene_implentation()
+		{
+			std::cout << "ternary_logic::test_equal_referene_implentation" << std::endl;
+
+			constexpr unsigned int a = 0b1010'1010'1010'1010'1010'1010'1010'1010;
+			constexpr unsigned int b = 0b1100'1100'1100'1100'1100'1100'1100'1100;
+			constexpr unsigned int c = 0b1111'0000'1111'0000'1111'0000'1111'0000;
+
+			static_assert(reference::vpternlog(a, b, c, 1) == priv::ternary_no_vpternlog(a, b, c, 1));
+			static_assert(reference::vpternlog(a, b, c, 2) == priv::ternary_no_vpternlog(a, b, c, 2));
+			static_assert(reference::vpternlog(a, b, c, 3) == priv::ternary_no_vpternlog(a, b, c, 3));
+			static_assert(reference::vpternlog(a, b, c, 4) == priv::ternary_no_vpternlog(a, b, c, 4));
+			static_assert(reference::vpternlog(a, b, c, 5) == priv::ternary_no_vpternlog(a, b, c, 5));
+			static_assert(reference::vpternlog(a, b, c, 6) == priv::ternary_no_vpternlog(a, b, c, 6));
+			static_assert(reference::vpternlog(a, b, c, 7) == priv::ternary_no_vpternlog(a, b, c, 7));
+			static_assert(reference::vpternlog(a, b, c, 8) == priv::ternary_no_vpternlog(a, b, c, 8));
+			static_assert(reference::vpternlog(a, b, c, 9) == priv::ternary_no_vpternlog(a, b, c, 9));
+			static_assert(reference::vpternlog(a, b, c, 10) == priv::ternary_no_vpternlog(a, b, c, 10));
+			static_assert(reference::vpternlog(a, b, c, 11) == priv::ternary_no_vpternlog(a, b, c, 11));
+			static_assert(reference::vpternlog(a, b, c, 12) == priv::ternary_no_vpternlog(a, b, c, 12));
+			static_assert(reference::vpternlog(a, b, c, 13) == priv::ternary_no_vpternlog(a, b, c, 13));
+			static_assert(reference::vpternlog(a, b, c, 14) == priv::ternary_no_vpternlog(a, b, c, 14));
+			static_assert(reference::vpternlog(a, b, c, 15) == priv::ternary_no_vpternlog(a, b, c, 15));
+			static_assert(reference::vpternlog(a, b, c, 16) == priv::ternary_no_vpternlog(a, b, c, 16));
+			static_assert(reference::vpternlog(a, b, c, 17) == priv::ternary_no_vpternlog(a, b, c, 17));
+			static_assert(reference::vpternlog(a, b, c, 18) == priv::ternary_no_vpternlog(a, b, c, 18));
+			static_assert(reference::vpternlog(a, b, c, 19) == priv::ternary_no_vpternlog(a, b, c, 19));
+			static_assert(reference::vpternlog(a, b, c, 20) == priv::ternary_no_vpternlog(a, b, c, 20));
+			static_assert(reference::vpternlog(a, b, c, 21) == priv::ternary_no_vpternlog(a, b, c, 21));
+			static_assert(reference::vpternlog(a, b, c, 22) == priv::ternary_no_vpternlog(a, b, c, 22));
+			static_assert(reference::vpternlog(a, b, c, 23) == priv::ternary_no_vpternlog(a, b, c, 23));
+			static_assert(reference::vpternlog(a, b, c, 24) == priv::ternary_no_vpternlog(a, b, c, 24));
+			static_assert(reference::vpternlog(a, b, c, 25) == priv::ternary_no_vpternlog(a, b, c, 25));
+			static_assert(reference::vpternlog(a, b, c, 26) == priv::ternary_no_vpternlog(a, b, c, 26));
+			static_assert(reference::vpternlog(a, b, c, 27) == priv::ternary_no_vpternlog(a, b, c, 27));
+			static_assert(reference::vpternlog(a, b, c, 28) == priv::ternary_no_vpternlog(a, b, c, 28));
+			static_assert(reference::vpternlog(a, b, c, 29) == priv::ternary_no_vpternlog(a, b, c, 29));
+			static_assert(reference::vpternlog(a, b, c, 30) == priv::ternary_no_vpternlog(a, b, c, 30));
+			static_assert(reference::vpternlog(a, b, c, 31) == priv::ternary_no_vpternlog(a, b, c, 31));
+			static_assert(reference::vpternlog(a, b, c, 32) == priv::ternary_no_vpternlog(a, b, c, 32));
+			static_assert(reference::vpternlog(a, b, c, 33) == priv::ternary_no_vpternlog(a, b, c, 33));
+			static_assert(reference::vpternlog(a, b, c, 34) == priv::ternary_no_vpternlog(a, b, c, 34));
+			static_assert(reference::vpternlog(a, b, c, 35) == priv::ternary_no_vpternlog(a, b, c, 35));
+			static_assert(reference::vpternlog(a, b, c, 36) == priv::ternary_no_vpternlog(a, b, c, 36));
+			static_assert(reference::vpternlog(a, b, c, 37) == priv::ternary_no_vpternlog(a, b, c, 37));
+			static_assert(reference::vpternlog(a, b, c, 38) == priv::ternary_no_vpternlog(a, b, c, 38));
+			static_assert(reference::vpternlog(a, b, c, 39) == priv::ternary_no_vpternlog(a, b, c, 39));
+
+			bool has_error = false;
+			for (int i = 0; i <= 0xFF; ++i) {
+				if (reference::vpternlog(a, b, c, i) != priv::ternary_no_vpternlog(a, b, c, i)) {
+					std::cout << "ERROR " << i << std::endl;
+					has_error = true;
+				}
+			}
+			if (has_error) {
+				std::cout << "ternarylogic::vpternlog::test(): vpternlogd is NOT equal to reference implementation" << std::endl;
+			}
+		}
 		void inline test_equal_sse_equals_avx512()
 		{
 			std::cout << "ternary_logic::test_equal_sse_equals_avx512" << std::endl;
@@ -1248,6 +1324,7 @@ namespace ternarylogic
 
 		void inline tests()
 		{
+			test_equal_referene_implentation();
 			test_equal_sse_equals_avx512();
 			test_equal_sse_equals_avx2();
 			test_equal_x86_32_equals_sse();

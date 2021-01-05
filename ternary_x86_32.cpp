@@ -6,7 +6,7 @@ namespace ternarylogic {
 
     namespace x86_32 {
 
-        template<unsigned k> __forceinline constexpr uint32_t ternary(const uint32_t, const uint32_t, const uint32_t) noexcept {
+        template<unsigned int k> __forceinline constexpr uint32_t ternary(const uint32_t, const uint32_t, const uint32_t) noexcept {
             static_assert(k < 256, "Unspecified ternary function");
             return 0;
         }
